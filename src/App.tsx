@@ -8,13 +8,13 @@ import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-interface Category {
+type Category = {
   id: number;
   img: string;
   prefix: string;
   title: string;
   price: string;
-}
+};
 function App() {
   const [data, setData] = useState<Category[]>([]);
   console.log(data);
@@ -30,9 +30,15 @@ function App() {
         {data.map((item) => {
           return (
             <Grid key={item.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
-              <Card >
+              <Card>
                 <CardMedia
-                  sx={{ height: 140 }}
+                  component="img"
+                  sx={{
+                    height: 180,
+                    width: "100%",
+                    objectFit: "contain",
+                    borderRadius: "8px",
+                  }}
                   image={item.img}
                   title="green iguana"
                 />
