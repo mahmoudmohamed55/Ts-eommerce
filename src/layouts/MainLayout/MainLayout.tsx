@@ -1,13 +1,15 @@
-import Footer from "../../components/common/Footer/Footer";
-import Header from "../../components/common/Header/HeaderCounter/HeaderCounter";
+import Container from "@mui/material/Container";
+import Footer from "@components/common/Footer/Footer";
+import Header from "@components/common/Header/HeaderCounter/HeaderCounter";
+import { Outlet } from "react-router-dom";
 
 const MainLayout = () => {
   return (
-    <div className="h-dvh">
+    <Container maxWidth="md" className="h-dvh flex flex-col">
       <Header />
-      <div className="h-96"></div>
+      <Outlet />
       <Footer />
-    </div>
+    </Container>
   );
 };
 export default MainLayout;

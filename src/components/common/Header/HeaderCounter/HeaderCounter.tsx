@@ -1,21 +1,32 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+
 import IconButton from "@mui/material/IconButton";
 import Container from "@mui/material/Container";
 import Chip from "@mui/material/Chip";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
+import Badge from "@mui/material/Badge";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { NavLink } from "react-router-dom";
 
-const navItems = ["Home", "Categories", "About", "Contact"];
-const authItems = ["Login", "Register"];
+const navItems = [
+  { label: "Home", path: "/" },
+  { label: "Categories", path: "/categories" },
+  { label: "About", path: "/about" },
+  { label: "Account", path: "/account" },
+];
+
+const authItems = [
+  { label: "Login", path: "/login" },
+  { label: "Register", path: "/register" },
+];
 const drawerWidth = 240;
 
 interface Props {
@@ -25,7 +36,7 @@ interface Props {
 export default function Header(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-
+  const cartCount = 4; // لاحقًا هتكون State ديناميكية
   const handleDrawerToggle = () => {
     setMobileOpen((prev) => !prev);
   };
@@ -54,19 +65,75 @@ export default function Header(props: Props) {
           sx={{ bgcolor: "primary.main", color: "white", fontWeight: "bold" }}
         />
       </Typography>
+
       <List>
         {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "left" }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
+          <ListItem key={item.label} disablePadding>
+            <NavLink
+              to={item.path}
+              style={({ isActive }) => ({
+                display: "block",
+                width: "100%",
+                fontWeight: "600",
+                textTransform: "none",
+                padding: "14px 12px",
+                fontSize: "15px",
+                borderRadius: "6px",
+                marginBottom: "6px",
+
+                color: isActive ? "#fff" : "#222",
+
+                backgroundColor: isActive ? "rgba(0,0,0,0.35)" : "transparent",
+
+                transition: "0.25s ease",
+              })}
+            >
+              <ListItemText primary={item.label} />
+            </NavLink>
           </ListItem>
         ))}
+        <ListItem disablePadding>
+          <NavLink
+            to="/cart"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "14px 12px",
+              fontWeight: "600",
+
+              fontSize: "14px",
+            }}
+          >
+            Cart
+            <Badge badgeContent={cartCount} color="primary">
+              <ShoppingCartIcon />
+            </Badge>
+          </NavLink>
+        </ListItem>
         {authItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "left" }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
+          <ListItem key={item.label} disablePadding>
+            <NavLink
+              to={item.path}
+              style={({ isActive }) => ({
+                display: "block",
+                width: "100%",
+                fontWeight: "600",
+                textTransform: "none",
+                padding: "14px 12px",
+                fontSize: "15px",
+                borderRadius: "6px",
+                marginBottom: "6px",
+
+                color: isActive ? "#fff" : "#222",
+
+                backgroundColor: isActive ? "rgba(0,0,0,0.35)" : "transparent",
+
+                transition: "0.25s ease",
+              })}
+            >
+              <ListItemText primary={item.label} />
+            </NavLink>
           </ListItem>
         ))}
       </List>
@@ -92,6 +159,7 @@ export default function Header(props: Props) {
               px: { xs: 1, sm: 0 },
               display: "flex",
               justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
             {/* Left: Site Name */}
@@ -119,6 +187,15 @@ export default function Header(props: Props) {
               />
             </Typography>
 
+            {/* Cart Icon */}
+            <IconButton
+              sx={{ color: "black", display: { xs: "none", sm: "flex" } }}
+            >
+              <Badge badgeContent={cartCount} color="primary">
+                <ShoppingCartIcon />
+              </Badge>
+            </IconButton>
+
             {/* Right: Menu Icon for Mobile */}
             <IconButton
               color="inherit"
@@ -137,7 +214,7 @@ export default function Header(props: Props) {
         position="static"
         elevation={0}
         sx={{
-          backgroundColor: "transparent", // default شفاف
+          backgroundColor: "transparent",
           minHeight: 48,
           pt: 0,
           pb: 0,
@@ -146,7 +223,7 @@ export default function Header(props: Props) {
         <Container
           maxWidth="md"
           sx={{
-            backgroundColor: { xs: "transparent", sm: "#111111" }, // يظهر فقط للشاشات الكبيرة
+            backgroundColor: { xs: "transparent", sm: "#111111" },
             borderRadius: 1,
             px: { xs: 1, sm: 0 },
           }}
@@ -161,44 +238,38 @@ export default function Header(props: Props) {
               }}
             >
               {navItems.map((item) => (
-                <Button
-                  key={item}
-                  sx={{
-                    color: "#fff",
-                    fontWeight: "500",
-                    textTransform: "none",
-                    fontSize: 14,
-                  }}
+                <NavLink
+                  to={item.path}
+                  key={item.label}
+                  className={({ isActive }) =>
+                    `block px-3 py-3 mb-2 rounded-md text-[14px] font-semibold transition
+      ${isActive ? "text-white" : "text-zinc-400 hover:text-white"}`
+                  }
                 >
-                  {item}
-                </Button>
+                  {item.label}
+                </NavLink>
               ))}
             </Box>
 
             {/* Right Auth links */}
             <Box sx={{ display: { xs: "none", sm: "flex" }, gap: 2 }}>
-              {authItems.map((item, idx) =>
-                item === "Register" ? (
-                  <Button
-                    key={idx}
-                    variant="contained"
-                    size="small"
-                    sx={{ fontSize: 12, bgcolor: "primary.main" }}
-                  >
-                    {item}
-                  </Button>
-                ) : (
-                  <Button key={idx} sx={{ color: "#fff", fontSize: 12 }}>
-                    {item}
-                  </Button>
-                )
-              )}
+              {authItems.map((item, idx) => (
+                <NavLink
+                  to={item.path}
+                  key={idx}
+                  className={({ isActive }) =>
+                    `block px-3 py-3 mb-2 rounded-md text-[14px] font-semibold transition
+      ${isActive ? "text-white" : "text-zinc-400 hover:text-white"}`
+                  }
+                >
+                  {item.label}
+                </NavLink>
+              ))}
             </Box>
           </Toolbar>
         </Container>
       </AppBar>
 
-      {/* Drawer for Mobile */}
       <Drawer
         container={container}
         variant="temporary"
