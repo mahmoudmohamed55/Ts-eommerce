@@ -32,7 +32,7 @@ export default function Product() {
   return (
     <Grid container spacing={2} my={5}>
       {data.map((item) => (
-        <Grid  size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={item.id}>
+        <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={item.id}>
           <Card sx={{ height: "100%" }}>
             <CardActionArea
               sx={{
@@ -45,10 +45,17 @@ export default function Product() {
               }}
             >
               <CardMedia
-                component={"img"}
-                sx={{ height: 140, objectFit: "contain", width: "100%" }}
+                component="img"
+                height="140"
                 image={item.img}
-                title={item.title}
+                alt={item.title}
+                sx={{
+                  width: 140,
+                  height: 140,
+                 
+                  margin: "16px auto 8px",
+                  objectFit: "contain",
+                }}
               />
               <CardContent
                 sx={{

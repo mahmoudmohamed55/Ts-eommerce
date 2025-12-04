@@ -32,10 +32,9 @@ const router = createBrowserRouter([
         element: <Categories />,
       },
       {
-        path: "products/:prefix",
+        path: "/categories/products/:prefix",
         element: <Products />,
         loader: ({ params }) => {
-          
           if (
             typeof params.prefix !== "string" ||
             !/^[a-z]+$/i.test(params.prefix)

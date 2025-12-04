@@ -4,75 +4,58 @@ import {
   CardContent,
   CardMedia,
   Typography,
-  Grid,
 } from "@mui/material";
-import { useEffect, useState } from "react";
-import axios from "axios";
-
-interface Cat {
-  id: number;
+import { Link } from "react-router-dom";
+interface IProps {
   title: string;
-  prefix: string;
   img: string;
+  prefix?: string;
 }
 
-export default function Category() {
-  const [data, setData] = useState<Cat[]>([]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/category")
-      .then((res) => setData(res.data))
-      .catch((err) => console.error(err));
-  }, []);
-
+export default function Category({ title, img ,prefix}: IProps) {
   return (
-    <Grid my={5} container spacing={2}>
-      {data.map((cat) => (
-        <Grid  size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={cat.id}>
-          <Card
+    <Link to={`/categories/products/${prefix}`}>
+      <Card
+        sx={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "flex-start",
+        }}
+      >
+        <CardActionArea sx={{ width: "100%" }}>
+          <CardMedia
+            component="img"
+            height="140"
+            image={img}
+            alt={title}
             sx={{
-              height: "100%",
+              width: 140,
+              height: 140,
+              borderRadius: "50%",
+              margin: "16px auto 8px",
+              objectFit: "cover",
+            }}
+          />
+          <CardContent
+            sx={{
               display: "flex",
-              flexDirection: "column",
+              justifyContent: "center",
               alignItems: "center",
-              justifyContent: "flex-start",
             }}
           >
-            <CardActionArea sx={{ width: "100%" }}>
-              <CardMedia
-                component="img"
-                height="140"
-                image={cat.img}
-                alt={cat.title}
-                sx={{
-                  width: 140,
-                  height: 140,
-                  borderRadius: "50%",
-                  margin: "16px auto 8px",
-                  objectFit: "cover",
-                }}
-              />
-              <CardContent
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Typography
-                  gutterBottom
-                  variant="h6"
-                  component="div"
-                  sx={{ textAlign: "center" ,textTransform:"capitalize"}}
-                >
-                  {cat.title}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        </Grid>
-      ))}
-    </Grid>
+            <Typography
+              gutterBottom
+              variant="h6"
+              component="div"
+              sx={{ textAlign: "center", textTransform: "capitalize" }}
+            >
+              {title}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </Link>
   );
 }

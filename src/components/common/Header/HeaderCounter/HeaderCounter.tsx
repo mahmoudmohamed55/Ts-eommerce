@@ -36,7 +36,7 @@ interface Props {
 export default function Header(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-  const cartCount = 4; // لاحقًا هتكون State ديناميكية
+  const cartCount = 4;
   const handleDrawerToggle = () => {
     setMobileOpen((prev) => !prev);
   };
@@ -142,7 +142,6 @@ export default function Header(props: Props) {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
-      {/* Top AppBar - Site Name */}
       <AppBar
         position="static"
         elevation={0}
@@ -162,7 +161,6 @@ export default function Header(props: Props) {
               alignItems: "center",
             }}
           >
-            {/* Left: Site Name */}
             <Typography
               variant="h6"
               component="div"
@@ -196,7 +194,6 @@ export default function Header(props: Props) {
               </Badge>
             </IconButton>
 
-            {/* Right: Menu Icon for Mobile */}
             <IconButton
               color="inherit"
               edge="end"
@@ -209,7 +206,6 @@ export default function Header(props: Props) {
         </Container>
       </AppBar>
 
-      {/* Main Navigation Bar */}
       <AppBar
         position="static"
         elevation={0}
@@ -218,6 +214,10 @@ export default function Header(props: Props) {
           minHeight: 48,
           pt: 0,
           pb: 0,
+          display: {
+            xs: "none",
+            sm:"flex"
+          },
         }}
       >
         <Container
@@ -229,7 +229,6 @@ export default function Header(props: Props) {
           }}
         >
           <Toolbar sx={{ minHeight: 48, px: 0 }}>
-            {/* Left Navigation links */}
             <Box
               sx={{
                 display: { xs: "none", sm: "flex" },
