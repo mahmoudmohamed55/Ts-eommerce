@@ -5,14 +5,10 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import type { TCategory } from "../../../types/category.types";
 import { Link } from "react-router-dom";
-interface IProps {
-  title: string;
-  img: string;
-  prefix?: string;
-}
 
-export default function Category({ title, img ,prefix}: IProps) {
+export default function Category({ title, img, prefix }: TCategory) {
   return (
     <Link to={`/categories/products/${prefix}`}>
       <Card
@@ -22,6 +18,8 @@ export default function Category({ title, img ,prefix}: IProps) {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "flex-start",
+          borderRadius: "0",
+          boxShadow: "none",
         }}
       >
         <CardActionArea sx={{ width: "100%" }}>

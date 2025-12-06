@@ -1,25 +1,30 @@
 import { Category } from "@components/eCommerce";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import actGetCategories from "@store/categories/act/actGetCategories";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { useEffect } from "react";
 
 const Categories = () => {
   const dispatch = useAppDispatch();
-  const { loading, error, records } = useAppSelector((state) => state.category);
-  console.log(records, loading, error);
+  const { loading, records } = useAppSelector((state) => state.category);
 
   useEffect(() => {
-    dispatch(actGetCategories());
-  }, [dispatch]);
+    if (!records.length) {
+      dispatch(actGetCategories());
+    }
+  }, [dispatch, records]);
   const categoriesList =
-    records.length > 0
-      ? records.map((cat, index) => (
-          <Grid key={index} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
-            <Category {...cat} />
-          </Grid>
-        ))
-      : "There is no Categories";
+    records.length > 0 ? (
+      records.map((cat) => (
+        <Grid key={cat.id} size={{ xs: 12, sm: 6, md: 4 }}>
+          <Category {...cat} />
+        </Grid>
+      ))
+    ) : (
+      <Typography variant="h6" textAlign="center">
+        There are no Categories
+      </Typography>
+    );
   return (
     <>
       {loading === "pending" ? (
