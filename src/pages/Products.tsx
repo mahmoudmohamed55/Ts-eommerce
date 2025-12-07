@@ -29,6 +29,8 @@ const Products = () => {
           <GridList
             records={records}
             renderItem={(record) => <Product {...record} />}
+            col1={4}
+            col2={3}
           />
         </Grid>
       </Loading>

@@ -1,7 +1,7 @@
 import { GridList } from "@components/common";
 import { Category } from "@components/eCommerce";
 import { Loading } from "@components/feedback";
-import { Grid} from "@mui/material";
+import { Grid } from "@mui/material";
 import actGetCategories from "@store/categories/act/actGetCategories";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { useEffect } from "react";
@@ -23,6 +23,8 @@ const Categories = () => {
           <GridList
             records={records}
             renderItem={(record) => <Category {...record} />}
+            col1={4}
+            col2={4}
           />
         </Grid>
       </Loading>

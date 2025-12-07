@@ -18,7 +18,7 @@ export default function Category({ title, img, prefix }: TCategory) {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "flex-start",
-          borderRadius: "0",
+          borderRadius: "5",
           boxShadow: "none",
         }}
       >
