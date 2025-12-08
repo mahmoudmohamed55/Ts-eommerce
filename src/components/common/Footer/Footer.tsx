@@ -5,7 +5,7 @@ export default function Footer() {
   const year: number = new Date().getFullYear();
   return (
     <Container
-      maxWidth="md"
+      maxWidth="lg"
       sx={{
         display: "flex",
         alignItems: "center",

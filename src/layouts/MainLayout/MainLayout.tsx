@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 
 const MainLayout = () => {
   return (
-    <Container maxWidth="md" className="h-dvh flex flex-col">
+    <Container maxWidth="lg" className="h-dvh flex flex-col">
       <Header />
       <Outlet />
       <Footer />

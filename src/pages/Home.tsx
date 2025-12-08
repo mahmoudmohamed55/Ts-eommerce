@@ -4,8 +4,9 @@ import { Loading } from "@components/feedback";
 import { Grid } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { actGetallProducts } from "@store/products/allproducts/allproductsact";
-import { useEffect } from "react";
+import type { TProduct } from "../types/product.types";
 
+import { useEffect } from "react";
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -15,8 +16,10 @@ const Home = () => {
   console.log(records);
 
   useEffect(() => {
-    dispatch(actGetallProducts());
-  }, [dispatch]);
+    if (!records.length) {
+      dispatch(actGetallProducts());
+    }
+  }, [dispatch, records]);
 
   return (
     <Grid>
@@ -24,7 +27,7 @@ const Home = () => {
         <Grid my={5} container spacing={2}>
           <GridList
             records={records}
-            renderItem={(record) => <Product {...record} />}
+            renderItem={(record: TProduct) => <Product {...record} />}
             col1={4}
             col2={3}
           />

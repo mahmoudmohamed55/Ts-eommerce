@@ -15,6 +15,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Badge from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { NavLink } from "react-router-dom";
+import { useAppSelector } from "@store/hooks";
+import { totalQuantitySelector } from "@store/cart/selectors";
 
 const navItems = [
   { label: "Home", path: "/" },
@@ -36,7 +38,7 @@ interface Props {
 export default function Header(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-  const cartCount = 4;
+  const cartCount = useAppSelector(totalQuantitySelector);
   const handleDrawerToggle = () => {
     setMobileOpen((prev) => !prev);
   };
@@ -151,7 +153,7 @@ export default function Header(props: Props) {
           minHeight: 40,
         }}
       >
-        <Container maxWidth="md">
+        <Container disableGutters maxWidth="lg">
           <Toolbar
             sx={{
               minHeight: 40,
@@ -216,12 +218,12 @@ export default function Header(props: Props) {
           pb: 0,
           display: {
             xs: "none",
-            sm:"flex"
+            sm: "flex",
           },
         }}
       >
         <Container
-          maxWidth="md"
+          maxWidth="lg"
           sx={{
             backgroundColor: { xs: "transparent", sm: "#111111" },
             borderRadius: 1,

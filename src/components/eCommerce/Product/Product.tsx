@@ -8,10 +8,14 @@ import {
 } from "@mui/material";
 
 import type { TProduct } from "../../../types/product.types";
+import { useAppDispatch } from "@store/hooks";
+import { addToCart } from "@store/cart/cartSlice";
 
-
-
-export default function Product({ title, img, price }: TProduct) {
+export default function Product({ title, img, price, id }: TProduct) {
+  const dispatch = useAppDispatch();
+  const addToCartHandler = () => {
+    dispatch(addToCart(id));
+  };
   return (
     <Card sx={{ height: "100%" }}>
       <CardActionArea
@@ -21,7 +25,7 @@ export default function Product({ title, img, price }: TProduct) {
           flexDirection: "column",
           height: "100%",
           "&:hover": {
-            backgroundColor: "#f5f5f5", 
+            backgroundColor: "#f5f5f5",
           },
         }}
       >
@@ -63,7 +67,12 @@ export default function Product({ title, img, price }: TProduct) {
           </Typography>
 
           {/* زر Add to Cart */}
-          <Button variant="contained" color="primary" sx={{ mt: "auto" }}>
+          <Button
+            onClick={addToCartHandler}
+            variant="contained"
+            color="primary"
+            sx={{ mt: "auto" }}
+          >
             Add to Cart
           </Button>
         </CardContent>

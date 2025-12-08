@@ -12,7 +12,7 @@ export default function GridList<T extends hasID>({
   col1,
   col2,
 }: GridListProps<T>) {
-  const categoriesList =
+  const List =
     records.length > 0 ? (
       records.map((cat) => (
         <Grid key={cat.id} size={{ xs: 12, sm: 6, md: col1, lg: col2 }}>
@@ -24,5 +24,5 @@ export default function GridList<T extends hasID>({
         There are no Categories
       </Typography>
     );
-  return categoriesList;
+  return List;
 }
