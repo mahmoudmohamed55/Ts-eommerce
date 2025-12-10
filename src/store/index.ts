@@ -19,16 +19,20 @@ const rootPersistConfig = {
   storage,
   whiteList: "cart",
 };
+const cartPersistConfig = {
+  key: "cart",
+  storage,
+  whiteList: ["items"],
+};
 const rootReducers = combineReducers({
   category,
   product,
   AllProducts,
-  cart,
+  cart : persistReducer(cartPersistConfig, cart),
 });
 const persistedReducer = persistReducer(rootPersistConfig, rootReducers);
 const store = configureStore({
   reducer: persistedReducer,
-
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

@@ -1,4 +1,4 @@
-import { GridList } from "@components/common";
+import { GridList, Heading } from "@components/common";
 import { Product } from "@components/eCommerce";
 import { Loading } from "@components/feedback";
 import { Grid } from "@mui/material";
@@ -12,6 +12,11 @@ const Products = () => {
   const dispatch = useAppDispatch();
   const { loading, error, records } = useAppSelector((state) => state.product);
   const { prefix } = useParams<{ prefix: string }>();
+  const cartItems = useAppSelector((state) => state.cart.items);
+  const productsFullInfo = records.map((el) => ({
+    ...el,
+    quantity: cartItems[el.id],
+  }));
 
   useEffect(() => {
     if (prefix) {
@@ -24,10 +29,11 @@ const Products = () => {
 
   return (
     <>
+      <Heading title={`${prefix} Products`} align="left" />
       <Loading status={loading} error={error}>
-        <Grid my={5} container spacing={2}>
+        <Grid mb={5} container spacing={2}>
           <GridList
-            records={records}
+            records={productsFullInfo}
             renderItem={(record) => <Product {...record} />}
             col1={4}
             col2={3}

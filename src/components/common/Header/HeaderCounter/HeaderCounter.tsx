@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -17,7 +17,8 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { NavLink } from "react-router-dom";
 import { useAppSelector } from "@store/hooks";
 import { totalQuantitySelector } from "@store/cart/selectors";
-
+import styles from "./styles.module.css";
+const { pumpAnimate } = styles;
 const navItems = [
   { label: "Home", path: "/" },
   { label: "Categories", path: "/categories" },
@@ -39,6 +40,20 @@ export default function Header(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const cartCount = useAppSelector(totalQuantitySelector);
+  const [isBumping, setIsBumping] = useState(false);
+  useEffect(() => {
+    if (!cartCount) {
+      return;
+    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsBumping(true);
+    const timer = setTimeout(() => {
+      setIsBumping(false);
+    }, 300);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [cartCount]);
   const handleDrawerToggle = () => {
     setMobileOpen((prev) => !prev);
   };
@@ -108,7 +123,16 @@ export default function Header(props: Props) {
             }}
           >
             Cart
-            <Badge badgeContent={cartCount} color="primary">
+            <Badge
+              badgeContent={
+                cartCount > 0 ? (
+                  <span className={isBumping ? pumpAnimate : ""}>
+                    {cartCount}
+                  </span>
+                ) : null
+              }
+              color="primary"
+            >
               <ShoppingCartIcon />
             </Badge>
           </NavLink>
@@ -191,7 +215,16 @@ export default function Header(props: Props) {
             <IconButton
               sx={{ color: "black", display: { xs: "none", sm: "flex" } }}
             >
-              <Badge badgeContent={cartCount} color="primary">
+              <Badge
+                badgeContent={
+                  cartCount > 0 ? (
+                    <span className={isBumping ? pumpAnimate : ""}>
+                      {cartCount}
+                    </span>
+                  ) : null
+                }
+                color="primary"
+              >
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>

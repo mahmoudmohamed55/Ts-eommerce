@@ -5,16 +5,33 @@ import {
   CardMedia,
   Typography,
   Button,
+  CircularProgress,
 } from "@mui/material";
 
 import type { TProduct } from "../../../types/product.types";
 import { useAppDispatch } from "@store/hooks";
 import { addToCart } from "@store/cart/cartSlice";
+import { memo, useEffect, useState } from "react";
 
-export default function Product({ title, img, price, id }: TProduct) {
+const Product = memo(({ title, img, price, id, max, quantity }: TProduct) => {
   const dispatch = useAppDispatch();
+  const [isBtnDisabled, setIsBtnDisabled] = useState(false);
+  const currentMax = max - (quantity ?? 0);
+  const quantityReachedToMax = currentMax <= 0 ? true : false;
+  useEffect(() => {
+    if (!isBtnDisabled) {
+      return;
+    }
+    const timer = setTimeout(() => {
+      setIsBtnDisabled(false);
+    }, 300);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [isBtnDisabled]);
   const addToCartHandler = () => {
     dispatch(addToCart(id));
+    setIsBtnDisabled(true);
   };
   return (
     <Card sx={{ height: "100%" }}>
@@ -65,18 +82,42 @@ export default function Product({ title, img, price, id }: TProduct) {
           >
             ${price}
           </Typography>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ textAlign: "center", fontWeight: "bold", mb: 1 }}
+          >
+            {quantityReachedToMax
+              ? "Max Limit Reached"
+              : `Available:${currentMax}`}
+          </Typography>
 
           {/* زر Add to Cart */}
           <Button
-            onClick={addToCartHandler}
             variant="contained"
             color="primary"
-            sx={{ mt: "auto" }}
+            disabled={isBtnDisabled || quantityReachedToMax}
+            onClick={addToCartHandler}
+            sx={{ mt: "auto", position: "relative" }}
           >
-            Add to Cart
+            {isBtnDisabled ? (
+              <>
+                <CircularProgress
+                  size={20}
+                  sx={{
+                    color: "white",
+                    mr: 1,
+                  }}
+                />
+                Loading...
+              </>
+            ) : (
+              "Add to Cart"
+            )}
           </Button>
         </CardContent>
       </CardActionArea>
     </Card>
   );
-}
+});
+export default Product;

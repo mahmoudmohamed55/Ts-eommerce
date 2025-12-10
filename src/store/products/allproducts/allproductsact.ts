@@ -9,7 +9,7 @@ export const actGetallProducts = createAsyncThunk(
     const { signal, rejectWithValue } = thunkAPI;
     try {
       const res = await axios.get<TProduct[]>(
-        `http://localhost:3001/products`,
+        `/products`,
         {
           signal,
         }

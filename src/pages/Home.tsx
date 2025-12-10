@@ -1,4 +1,4 @@
-import { GridList } from "@components/common";
+import { GridList, Heading } from "@components/common";
 import { Product } from "@components/eCommerce";
 import { Loading } from "@components/feedback";
 import { Grid } from "@mui/material";
@@ -13,7 +13,12 @@ const Home = () => {
   const { records, error, loading } = useAppSelector(
     (state) => state.AllProducts
   );
-  console.log(records);
+  const cartItems = useAppSelector((state) => state.cart.items);
+  const productsFullInfo = records.map((el) => ({
+    ...el,
+    quantity: cartItems[el.id],
+  }));
+ 
 
   useEffect(() => {
     if (!records.length) {
@@ -22,18 +27,21 @@ const Home = () => {
   }, [dispatch, records]);
 
   return (
-    <Grid>
-      <Loading status={loading} error={error}>
-        <Grid my={5} container spacing={2}>
-          <GridList
-            records={records}
-            renderItem={(record: TProduct) => <Product {...record} />}
-            col1={4}
-            col2={3}
-          />
-        </Grid>
-      </Loading>
-    </Grid>
+    <>
+      <Heading title={"Home"} />
+      <Grid>
+        <Loading status={loading} error={error}>
+          <Grid mb={5} container spacing={2}>
+            <GridList
+              records={productsFullInfo}
+              renderItem={(record: TProduct) => <Product {...record} />}
+              col1={4}
+              col2={3}
+            />
+          </Grid>
+        </Loading>
+      </Grid>
+    </>
   );
 };
 

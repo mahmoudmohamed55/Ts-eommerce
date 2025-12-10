@@ -3,7 +3,7 @@ export type TProduct = {
   title: string;
   prefix?: string;
   img: string;
-  price: string;
-  max?: number;
-  quantity?:number
+  price: number;
+  max: number;
+  quantity?: number;
 };
