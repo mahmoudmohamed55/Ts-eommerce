@@ -212,22 +212,24 @@ export default function Header(props: Props) {
             </Typography>
 
             {/* Cart Icon */}
-            <IconButton
-              sx={{ color: "black", display: { xs: "none", sm: "flex" } }}
-            >
-              <Badge
-                badgeContent={
-                  cartCount > 0 ? (
-                    <span className={isBumping ? pumpAnimate : ""}>
-                      {cartCount}
-                    </span>
-                  ) : null
-                }
-                color="primary"
+            <NavLink to={"/cart"}>
+              <IconButton
+                sx={{ color: "black", display: { xs: "none", sm: "flex" } }}
               >
-                <ShoppingCartIcon />
-              </Badge>
-            </IconButton>
+                <Badge
+                  badgeContent={
+                    cartCount > 0 ? (
+                      <span className={isBumping ? pumpAnimate : ""}>
+                        {cartCount}
+                      </span>
+                    ) : null
+                  }
+                  color="primary"
+                >
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
+            </NavLink>
 
             <IconButton
               color="inherit"

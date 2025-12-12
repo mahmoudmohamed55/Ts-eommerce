@@ -18,7 +18,7 @@ const Home = () => {
     ...el,
     quantity: cartItems[el.id],
   }));
- 
+
 
   useEffect(() => {
     if (!records.length) {

@@ -8,6 +8,7 @@ import Login from "@pages/Login";
 import Products from "@pages/Products";
 import Register from "@pages/Register";
 import Error404 from "@pages/Error";
+import Cart from "@pages/Cart";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "categories",
         element: <Categories />,
+      },
+      {
+        path: "cart",
+        element: <Cart />,
       },
       {
         path: "/categories/products/:prefix",
