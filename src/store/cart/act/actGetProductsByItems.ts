@@ -10,11 +10,12 @@ export const actGetProductsByItems = createAsyncThunk(
     const { cart } = getState() as RootState;
 
     const itemsId = Object.keys(cart.items);
-    if (!itemsId) {
+    if (itemsId.length === 0) {
       return fulfillWithValue([]);
     }
     try {
       const concatenatedItemsId = itemsId.map((el) => `id=${el}`).join("&");
+    
 
       const res = await axios.get<TResponse>(
         `/products?${concatenatedItemsId}`,
@@ -22,7 +23,7 @@ export const actGetProductsByItems = createAsyncThunk(
           signal,
         }
       );
-      console.log(res.data);
+
       return res.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
