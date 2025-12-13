@@ -18,6 +18,7 @@ import { NavLink } from "react-router-dom";
 import { useAppSelector } from "@store/hooks";
 import { totalQuantitySelector } from "@store/cart/selectors";
 import styles from "./styles.module.css";
+import wishlist from "@assets/svg/wishlist.svg";
 const { pumpAnimate } = styles;
 const navItems = [
   { label: "Home", path: "/" },
@@ -40,6 +41,7 @@ export default function Header(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const cartCount = useAppSelector(totalQuantitySelector);
+  const likeCount = useAppSelector((state) => state.wishlist.itemsId.length);
   const [isBumping, setIsBumping] = useState(false);
   useEffect(() => {
     if (!cartCount) {
@@ -137,6 +139,34 @@ export default function Header(props: Props) {
             </Badge>
           </NavLink>
         </ListItem>
+        <ListItem disablePadding>
+          <NavLink
+            to="/wishlist"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "14px 12px",
+              fontWeight: "600",
+
+              fontSize: "14px",
+            }}
+          >
+            Wishlist
+            <Badge
+              badgeContent={
+                cartCount > 0 ? (
+                  <span className={isBumping ? pumpAnimate : ""}>
+                    {cartCount}
+                  </span>
+                ) : null
+              }
+              color="error"
+            >
+              <Box component={"img"} src={wishlist} />
+            </Badge>
+          </NavLink>
+        </ListItem>
         {authItems.map((item) => (
           <ListItem key={item.label} disablePadding>
             <NavLink
@@ -212,9 +242,27 @@ export default function Header(props: Props) {
             </Typography>
 
             {/* Cart Icon */}
-            <NavLink to={"/cart"}>
-              <IconButton
-                sx={{ color: "black", display: { xs: "none", sm: "flex" } }}
+            <Box
+              sx={{
+                display: {
+                  xs: "none",
+                  sm: "flex",
+                },
+                alignItems: "center",
+                gap: 1,
+              }}
+            >
+              <NavLink
+                to="/cart"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "14px 12px",
+                  fontWeight: "600",
+
+                  fontSize: "14px",
+                }}
               >
                 <Badge
                   badgeContent={
@@ -228,8 +276,36 @@ export default function Header(props: Props) {
                 >
                   <ShoppingCartIcon />
                 </Badge>
-              </IconButton>
-            </NavLink>
+                Cart
+              </NavLink>
+              <Typography>|</Typography>
+              <NavLink
+                to="/wishlist"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "14px 12px",
+                  fontWeight: "600",
+
+                  fontSize: "14px",
+                }}
+              >
+                <Badge
+                  badgeContent={
+                    likeCount > 0 ? (
+                      <span className={isBumping ? pumpAnimate : ""}>
+                        {likeCount}
+                      </span>
+                    ) : null
+                  }
+                  color="error"
+                >
+                  <Box component={"img"} src={wishlist} />
+                </Badge>
+                Wishlist
+              </NavLink>
+            </Box>
 
             <IconButton
               color="inherit"

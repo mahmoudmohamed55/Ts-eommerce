@@ -13,10 +13,9 @@ import type { TProduct } from "../../../types/product.types";
 import { useAppDispatch } from "@store/hooks";
 import { cartItemChangeQuantity, cartItemRemove } from "@store/cart/cartSlice";
 
-function CartItem({ title, img, price, max, quantity, id }: TProduct) {
+const CartItem = memo(({ title, img, price, max, quantity, id }: TProduct) => {
   const dispatch = useAppDispatch();
   const [mount, setMount] = useState(String(quantity));
-
 
   const handleChange = useCallback(
     (e: SelectChangeEvent) => {
@@ -85,6 +84,6 @@ function CartItem({ title, img, price, max, quantity, id }: TProduct) {
       </IconButton>
     </Paper>
   );
-}
+});
 
-export default memo(CartItem);
+export default CartItem;

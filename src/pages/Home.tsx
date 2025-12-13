@@ -14,11 +14,13 @@ const Home = () => {
     (state) => state.AllProducts
   );
   const cartItems = useAppSelector((state) => state.cart.items);
+  const wishListItemsId = useAppSelector((state) => state.wishlist.itemsId);
+
   const productsFullInfo = records.map((el) => ({
     ...el,
     quantity: cartItems[el.id],
+    isLiked: wishListItemsId.includes(el.id),
   }));
-
 
   useEffect(() => {
     if (!records.length) {

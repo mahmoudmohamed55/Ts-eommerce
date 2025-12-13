@@ -3,6 +3,7 @@ import category from "@store/categories/categoriesSlice";
 import product from "@store/products/productsSlice";
 import AllProducts from "@store/products/allproducts/AllProductsSlice";
 import cart from "@store/cart/cartSlice";
+import wishlist from "@store/wishlist/wishlistSlice";
 import {
   persistStore,
   persistReducer,
@@ -28,7 +29,8 @@ const rootReducers = combineReducers({
   category,
   product,
   AllProducts,
-  cart : persistReducer(cartPersistConfig, cart),
+  cart: persistReducer(cartPersistConfig, cart),
+  wishlist,
 });
 const persistedReducer = persistReducer(rootPersistConfig, rootReducers);
 const store = configureStore({

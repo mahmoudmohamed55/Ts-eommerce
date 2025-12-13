@@ -37,11 +37,18 @@
       "img": "https://media.istockphoto.com/id/1097874048/photo/womens-fitness-outfit-isolated-on-white-background.jpg?s=2048x2048&w=is&k=20&c=tQPqhnOz-2PqMxbsSbyyLff4AChXfeXWUIvMwZzzpa0="
     }
   ],
+  "wishlist": [
+    {
+      "userId": 1,
+      "productId": 2,
+      "id": 1
+    }
+  ],
   "products": [
     {
       "id": 1,
       "title": "Men Slim Fit Shirt",
-      "price": 499.0,
+      "price": 499,
       "cat_prefix": "men",
       "img": "https://m.media-amazon.com/images/I/61wDc5SuNQL._AC_UL320_.jpg",
       "max": 5
@@ -49,7 +56,7 @@
     {
       "id": 2,
       "title": "Men Casual Jeans",
-      "price": 699.0,
+      "price": 699,
       "cat_prefix": "men",
       "img": "https://m.media-amazon.com/images/I/71JteT3UKRL._AC_UL320_.jpg",
       "max": 4
@@ -57,7 +64,7 @@
     {
       "id": 17,
       "title": "Men Polo Shirt",
-      "price": 399.0,
+      "price": 399,
       "cat_prefix": "men",
       "img": "https://m.media-amazon.com/images/I/518i+ANHN+L._AC_UL320_.jpg",
       "max": 4
@@ -65,16 +72,15 @@
     {
       "id": 18,
       "title": "Men Classic Jacket",
-      "price": 1299.0,
+      "price": 1299,
       "cat_prefix": "men",
       "img": "https://m.media-amazon.com/images/I/81YCRBeI8sL._AC_UL320_.jpg",
       "max": 3
     },
-
     {
       "id": 5,
       "title": "Kids Colorful T-Shirt",
-      "price": 299.0,
+      "price": 299,
       "cat_prefix": "kids",
       "img": "https://m.media-amazon.com/images/I/71A2eJyaZLL._AC_UL320_.jpg",
       "max": 6
@@ -82,7 +88,7 @@
     {
       "id": 6,
       "title": "Kids Denim Shorts",
-      "price": 249.0,
+      "price": 249,
       "cat_prefix": "kids",
       "img": "https://m.media-amazon.com/images/I/61WxnpKz60L._AC_UL320_.jpg",
       "max": 5
@@ -90,7 +96,7 @@
     {
       "id": 19,
       "title": "Kids Hoodie",
-      "price": 349.0,
+      "price": 349,
       "cat_prefix": "kids",
       "img": "https://m.media-amazon.com/images/I/51vfPPT+-FL._AC_UL320_.jpg",
       "max": 5
@@ -98,16 +104,15 @@
     {
       "id": 20,
       "title": "Kids Sport Shoes",
-      "price": 429.0,
+      "price": 429,
       "cat_prefix": "kids",
       "img": "https://m.media-amazon.com/images/I/411BGdHlU5L._AC_UL320_.jpg",
       "max": 4
     },
-
     {
       "id": 9,
       "title": "Leather Handbag",
-      "price": 799.0,
+      "price": 799,
       "cat_prefix": "accessories",
       "img": "https://m.media-amazon.com/images/I/71ExInTQD4L._AC_UL320_.jpg",
       "max": 3
@@ -115,7 +120,7 @@
     {
       "id": 10,
       "title": "Wrist Watch",
-      "price": 899.0,
+      "price": 899,
       "cat_prefix": "accessories",
       "img": "https://m.media-amazon.com/images/I/41NrRjLoLmL._AC_UL320_.jpg",
       "max": 4
@@ -123,7 +128,7 @@
     {
       "id": 21,
       "title": "Sunglasses",
-      "price": 259.0,
+      "price": 259,
       "cat_prefix": "accessories",
       "img": "https://m.media-amazon.com/images/I/41ZXmJQnp9L._AC_UL320_.jpg",
       "max": 6
@@ -131,16 +136,15 @@
     {
       "id": 22,
       "title": "Hat",
-      "price": 199.0,
+      "price": 199,
       "cat_prefix": "accessories",
       "img": "https://m.media-amazon.com/images/I/41YZK+x71LL._AC_UL320_.jpg",
       "max": 5
     },
-
     {
       "id": 11,
       "title": "Running Sneakers",
-      "price": 999.0,
+      "price": 999,
       "cat_prefix": "shoes",
       "img": "https://m.media-amazon.com/images/I/71oyW0-2h7L._AC_UL320_.jpg",
       "max": 5
@@ -148,7 +152,7 @@
     {
       "id": 12,
       "title": "Formal Shoes",
-      "price": 1199.0,
+      "price": 1199,
       "cat_prefix": "shoes",
       "img": "https://m.media-amazon.com/images/I/61Uizym5NLL._AC_UL320_.jpg",
       "max": 3
@@ -156,7 +160,7 @@
     {
       "id": 23,
       "title": "Running Shoes",
-      "price": 749.0,
+      "price": 749,
       "cat_prefix": "shoes",
       "img": "https://m.media-amazon.com/images/I/81Whdel3k7L._AC_UL320_.jpg",
       "max": 4
@@ -164,16 +168,15 @@
     {
       "id": 24,
       "title": "Winter Boots",
-      "price": 999.0,
+      "price": 999,
       "cat_prefix": "shoes",
       "img": "https://m.media-amazon.com/images/I/41g4BypCK8L._AC_UL320_.jpg",
       "max": 3
     },
-
     {
       "id": 13,
       "title": "Laptop 15-inch",
-      "price": 12499.0,
+      "price": 12499,
       "cat_prefix": "electronics",
       "img": "https://m.media-amazon.com/images/I/51tR1HZJ3qL._AC_UL320_.jpg",
       "max": 2
@@ -181,7 +184,7 @@
     {
       "id": 14,
       "title": "Wireless Headphones",
-      "price": 3499.0,
+      "price": 3499,
       "cat_prefix": "electronics",
       "img": "https://m.media-amazon.com/images/I/61jRE9zPBBL._AC_UL320_.jpg",
       "max": 3
@@ -189,7 +192,7 @@
     {
       "id": 25,
       "title": "Smartphone",
-      "price": 9999.0,
+      "price": 9999,
       "cat_prefix": "electronics",
       "img": "https://m.media-amazon.com/images/I/61yXZ6sG6GL._AC_UL320_.jpg",
       "max": 2
@@ -197,16 +200,15 @@
     {
       "id": 26,
       "title": "Wireless Speaker",
-      "price": 799.0,
+      "price": 799,
       "cat_prefix": "electronics",
       "img": "https://m.media-amazon.com/images/I/71DRh3h61OL._AC_UL320_.jpg",
       "max": 4
     },
-
     {
       "id": 15,
       "title": "Soccer Ball",
-      "price": 499.0,
+      "price": 499,
       "cat_prefix": "sport",
       "img": "https://m.media-amazon.com/images/I/71JGrbIgjXL._AC_UL320_.jpg",
       "max": 5
@@ -214,7 +216,7 @@
     {
       "id": 16,
       "title": "Basketball",
-      "price": 599.0,
+      "price": 599,
       "cat_prefix": "sport",
       "img": "https://m.media-amazon.com/images/I/61UCkpxMMCL._AC_UL320_.jpg",
       "max": 4
@@ -222,7 +224,7 @@
     {
       "id": 27,
       "title": "Tennis Racket",
-      "price": 699.0,
+      "price": 699,
       "cat_prefix": "sport",
       "img": "https://m.media-amazon.com/images/I/51kevCxuZQL._AC_UL320_.jpg",
       "max": 5
@@ -230,7 +232,7 @@
     {
       "id": 28,
       "title": "Skipping Ropes",
-      "price": 149.0,
+      "price": 149,
       "cat_prefix": "sport",
       "img": "https://m.media-amazon.com/images/I/41-FH-xokHL._AC_UL320_.jpg",
       "max": 6
