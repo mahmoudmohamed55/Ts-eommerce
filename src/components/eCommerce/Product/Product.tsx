@@ -18,9 +18,9 @@ import LikeFull from "@assets/svg/like-fill.svg";
 import { actLikeToggle } from "@store/wishlist/wishlistSlice";
 const Product = memo(
   ({ title, img, price, id, max, quantity, isLiked }: TProduct) => {
-    
     const dispatch = useAppDispatch();
     const [isBtnDisabled, setIsBtnDisabled] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const currentMax = max - (quantity ?? 0);
     const quantityReachedToMax = currentMax <= 0 ? true : false;
@@ -40,24 +40,47 @@ const Product = memo(
       setIsBtnDisabled(true);
     };
     const addLikeHandler = () => {
-      dispatch(actLikeToggle(id));
+      setIsLoading(true);
+      dispatch(actLikeToggle(id))
+        .unwrap()
+        .catch(() => {
+          setIsLoading(false);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     };
 
     return (
       <Card sx={{ height: "100%", position: "relative" }}>
         <Box
-          onClick={addLikeHandler}
-          component={"img"}
           sx={{
             position: "absolute",
             top: "20px",
             right: "20px",
             zIndex: 125,
-            cursor: "pointer",
-            "&:hover": { transform: "scale(1.1)" },
+            cursor: isLoading ? "not-allowed" : "pointer",
           }}
-          src={isLiked ? LikeFull : Like}
-        />
+          onClick={!isLoading ? addLikeHandler : undefined}
+        >
+          {isLoading ? (
+            <CircularProgress
+              size={21}
+              sx={{
+                color: "primary.main",
+              }}
+            />
+          ) : (
+            <Box
+              component="img"
+              src={isLiked ? LikeFull : Like}
+              sx={{
+                "&:hover": { transform: "scale(1.1)" },
+              }}
+            />
+          )}
+        </Box>
+
         <CardActionArea
           component="div"
           sx={{

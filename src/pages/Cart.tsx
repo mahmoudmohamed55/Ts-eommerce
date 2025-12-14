@@ -4,7 +4,7 @@ import CartItemList from "@components/eCommerce/CartItemList/CartItemList";
 import { Loading } from "@components/feedback";
 import { Container, Stack, Typography } from "@mui/material";
 
-import { actGetProductsByItems } from "@store/cart/cartSlice";
+import { actGetProductsByItems, cartCleanUp } from "@store/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { useEffect, useMemo } from "react";
 
@@ -23,6 +23,9 @@ export default function Cart() {
 
   useEffect(() => {
     dispatch(actGetProductsByItems());
+    return () => {
+      dispatch(cartCleanUp());
+    };
   }, [dispatch]);
   return (
     <>
