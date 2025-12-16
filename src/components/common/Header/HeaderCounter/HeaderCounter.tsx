@@ -43,6 +43,7 @@ export default function Header(props: Props) {
   const cartCount = useAppSelector(totalQuantitySelector);
   const likeCount = useAppSelector((state) => state.wishlist.itemsId.length);
   const [isBumping, setIsBumping] = useState(false);
+  const [isLikingBumping, setIsLikingBumping] = useState(false);
   useEffect(() => {
     if (!cartCount) {
       return;
@@ -56,6 +57,20 @@ export default function Header(props: Props) {
       clearTimeout(timer);
     };
   }, [cartCount]);
+
+  useEffect(() => {
+    if (!likeCount) {
+      return;
+    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsLikingBumping(true);
+    const timer = setTimeout(() => {
+      setIsLikingBumping(false);
+    }, 300);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [likeCount]);
   const handleDrawerToggle = () => {
     setMobileOpen((prev) => !prev);
   };
@@ -80,8 +95,8 @@ export default function Header(props: Props) {
       >
         Our
         <Chip
-          label="E-com"
-          sx={{ bgcolor: "primary.main", color: "white", fontWeight: "bold" }}
+          label="eCom"
+          sx={{ bgcolor: "primary.main", color: "white", fontWeight: "bold" , height: 22, fontSize: 18}}
         />
       </Typography>
 
@@ -155,9 +170,9 @@ export default function Header(props: Props) {
             Wishlist
             <Badge
               badgeContent={
-                cartCount > 0 ? (
-                  <span className={isBumping ? pumpAnimate : ""}>
-                    {cartCount}
+                likeCount > 0 ? (
+                  <span className={isLikingBumping ? pumpAnimate : ""}>
+                    {likeCount}
                   </span>
                 ) : null
               }
@@ -225,18 +240,18 @@ export default function Header(props: Props) {
                 alignItems: "center",
                 gap: 1,
                 fontWeight: "600",
-                fontSize: 16,
+                fontSize: 20,
               }}
             >
               Our
               <Chip
-                label="E-com"
+                label="eCom"
                 sx={{
                   bgcolor: "primary.main",
                   color: "white",
                   fontWeight: "bold",
                   height: 22,
-                  fontSize: 12,
+                  fontSize: 20,
                 }}
               />
             </Typography>
@@ -294,7 +309,7 @@ export default function Header(props: Props) {
                 <Badge
                   badgeContent={
                     likeCount > 0 ? (
-                      <span className={isBumping ? pumpAnimate : ""}>
+                      <span className={isLikingBumping ? pumpAnimate : ""}>
                         {likeCount}
                       </span>
                     ) : null

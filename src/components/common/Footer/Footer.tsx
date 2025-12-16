@@ -26,8 +26,8 @@ export default function Footer() {
           © {year}
         </Typography>
 
-        <Typography component="span" sx={{ fontWeight: 600 }}>
-          Our Ecom
+        <Typography color="primary" variant="h5" component="span" sx={{ fontWeight: 600 }}>
+          Our-eCom
         </Typography>
 
         <Typography component="span" sx={{ ml: 0.5 }}>

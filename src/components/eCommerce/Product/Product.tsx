@@ -21,7 +21,6 @@ const Product = memo(
     const dispatch = useAppDispatch();
     const [isBtnDisabled, setIsBtnDisabled] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
     const currentMax = max - (quantity ?? 0);
     const quantityReachedToMax = currentMax <= 0 ? true : false;
     useEffect(() => {

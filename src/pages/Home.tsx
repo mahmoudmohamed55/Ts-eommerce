@@ -2,31 +2,12 @@ import { GridList, Heading } from "@components/common";
 import { Product } from "@components/eCommerce";
 import { Loading } from "@components/feedback";
 import { Grid } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { actGetallProducts } from "@store/products/allproducts/allproductsact";
 import type { TProduct } from "../types/product.types";
+import useMain from "@hooks/useMain";
 
-import { useEffect } from "react";
 
 const Home = () => {
-  const dispatch = useAppDispatch();
-  const { records, error, loading } = useAppSelector(
-    (state) => state.AllProducts
-  );
-  const cartItems = useAppSelector((state) => state.cart.items);
-  const wishListItemsId = useAppSelector((state) => state.wishlist.itemsId);
-
-  const productsFullInfo = records.map((el) => ({
-    ...el,
-    quantity: cartItems[el.id],
-    isLiked: wishListItemsId.includes(el.id),
-  }));
-
-  useEffect(() => {
-    if (!records.length) {
-      dispatch(actGetallProducts());
-    }
-  }, [dispatch, records]);
+  const { loading, error, productsFullInfo } = useMain();
 
   return (
     <>

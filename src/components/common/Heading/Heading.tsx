@@ -1,11 +1,13 @@
 import { Typography } from "@mui/material";
+import { memo } from "react";
 
 interface HeadingProps {
   title: string;
   align?: "left" | "center" | "right";
 }
 
-export default function Heading({ title, align = "left" }: HeadingProps) {
+const Heading = memo(({ title, align = "left" }: HeadingProps) => {
+
   return (
     <Typography
       variant="h5"
@@ -22,4 +24,5 @@ export default function Heading({ title, align = "left" }: HeadingProps) {
       {title}
     </Typography>
   );
-}
+});
+export default Heading;
