@@ -8,7 +8,7 @@ const useWishlist = () => {
     (state) => state.wishlist
   );
   const cartItems = useAppSelector((state) => state.cart.items);
-console.log(productsFullInfo);
+
 
   const products = productsFullInfo.map((el) => ({
     ...el,
@@ -16,9 +16,10 @@ console.log(productsFullInfo);
     quantity: cartItems[el.id],
   }));
   useEffect(() => {
-    dispatch(actGetWishlist());
+    const promise = dispatch(actGetWishlist());
     return () => {
       dispatch(wishlistCleanUp());
+      promise.abort();
     };
   }, [dispatch]);
   return { loading, error, products };

@@ -25,7 +25,6 @@
       "@routes/*": ["src/routes/*"],
       "@store/*": ["src/store/*"],
       "@store": ["src/store/index"],
-      "@types/*": ["src/types/*"],
       "@types": ["src/types/index"],
       "@styles/*": ["src/styles/*"],
       "@layouts/*": ["src/layouts/*"],

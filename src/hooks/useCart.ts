@@ -15,9 +15,11 @@ const useCart = () => {
   const total = products.reduce((acc, el) => acc + el.price * el.quantity, 0);
 
   useEffect(() => {
-    dispatch(actGetProductsByItems());
+    const promise = dispatch(actGetProductsByItems());
+
     return () => {
       dispatch(cartCleanUp());
+      promise.abort();
     };
   }, [dispatch]);
   return { loading, error, products, total };

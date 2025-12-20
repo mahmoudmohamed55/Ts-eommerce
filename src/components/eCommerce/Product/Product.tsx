@@ -9,13 +9,14 @@ import {
   Box,
 } from "@mui/material";
 
-import type { TProduct } from "../../../types/product.types";
+
 import { useAppDispatch } from "@store/hooks";
 import { addToCart } from "@store/cart/cartSlice";
 import { memo, useEffect, useState } from "react";
 import Like from "@assets/svg/like.svg";
 import LikeFull from "@assets/svg/like-fill.svg";
 import { actLikeToggle } from "@store/wishlist/wishlistSlice";
+import type { TProduct } from "@types";
 const Product = memo(
   ({ title, img, price, id, max, quantity, isLiked }: TProduct) => {
     const dispatch = useAppDispatch();

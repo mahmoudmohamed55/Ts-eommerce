@@ -2,8 +2,9 @@ import { GridList, Heading } from "@components/common";
 import { Product } from "@components/eCommerce";
 import { Loading } from "@components/feedback";
 import { Grid } from "@mui/material";
-import type { TProduct } from "../types/product.types";
+
 import useWishlist from "@hooks/useWishlist";
+import type { TProduct } from "@types";
 
 const Wishlist = () => {
   const { loading, error, products } = useWishlist();

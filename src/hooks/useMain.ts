@@ -1,7 +1,6 @@
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { actGetallProducts } from "@store/products/allproducts/allproductsact";
 
-
 import { useEffect } from "react";
 
 import { allProductsCleanUp } from "@store/products/allproducts/AllProductsSlice";
@@ -20,10 +19,11 @@ const useMain = () => {
   }));
 
   useEffect(() => {
-    dispatch(actGetallProducts());
+    const promise = dispatch(actGetallProducts());
 
     return () => {
       dispatch(allProductsCleanUp());
+      promise.abort();
     };
   }, [dispatch]);
   return { loading, error, productsFullInfo };

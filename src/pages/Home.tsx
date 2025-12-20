@@ -2,8 +2,9 @@ import { GridList, Heading } from "@components/common";
 import { Product } from "@components/eCommerce";
 import { Loading } from "@components/feedback";
 import { Grid } from "@mui/material";
-import type { TProduct } from "../types/product.types";
+
 import useMain from "@hooks/useMain";
+import type { TProduct } from "@types";
 
 
 const Home = () => {

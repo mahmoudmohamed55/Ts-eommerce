@@ -1,9 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import type { TLoading } from "../../../types/shared.types";
-
-import type { TProduct } from "../../../types/product.types";
 import { actGetallProducts } from "./allproductsact";
+import { isString, type TLoading, type TProduct } from "@types";
 
 interface IProductsState {
   records: TProduct[];
@@ -22,7 +20,7 @@ const AllProductsSlice = createSlice({
   reducers: {
     allProductsCleanUp(state) {
       state.records = [];
-    }
+    },
   },
   extraReducers(builder) {
     builder.addCase(actGetallProducts.pending, (state) => {
@@ -32,11 +30,10 @@ const AllProductsSlice = createSlice({
     builder.addCase(actGetallProducts.fulfilled, (state, action) => {
       state.loading = "succeeded";
       state.records = action.payload;
-      
     });
     builder.addCase(actGetallProducts.rejected, (state, action) => {
       state.loading = "failed";
-      if (action.payload && typeof action.payload === "string") {
+      if (isString(action.payload)) {
         state.error = action.payload;
       }
     });

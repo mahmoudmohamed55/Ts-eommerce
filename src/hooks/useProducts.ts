@@ -17,13 +17,12 @@ const useProducts = () => {
   }));
 
   useEffect(() => {
-    if (prefix) {
-      dispatch(actGetProductsByCatPrefix(prefix));
-    }
+    const promise = dispatch(actGetProductsByCatPrefix(prefix as string));
     return () => {
       dispatch(productsCleanUp());
+      promise.abort();
     };
   }, [dispatch, prefix]);
-    return { loading, error, productsFullInfo, prefix };
+  return { loading, error, productsFullInfo, prefix };
 };
 export default useProducts;

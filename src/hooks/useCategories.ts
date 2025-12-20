@@ -8,10 +8,11 @@ const useCategories = () => {
   const { loading, error, records } = useAppSelector((state) => state.category);
 
   useEffect(() => {
-    dispatch(actGetCategories());
+   const promise = dispatch(actGetCategories());
 
     return () => {
       dispatch(categoriesRecordsCleanUp());
+      promise.abort();
     };
   }, [dispatch]);
   return { loading, error, records };

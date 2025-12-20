@@ -1,4 +1,6 @@
-import type { TLoading } from "../../../types/shared.types";
+import type { TLoading } from "@types";
+
+;
 
 type ILoading = {
   status: TLoading;

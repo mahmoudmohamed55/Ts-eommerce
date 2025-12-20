@@ -9,9 +9,10 @@ import {
 import { memo, useCallback, useState } from "react";
 import type { SelectChangeEvent } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import type { TProduct } from "../../../types/product.types";
+
 import { useAppDispatch } from "@store/hooks";
 import { cartItemChangeQuantity, cartItemRemove } from "@store/cart/cartSlice";
+import type { TProduct } from "@types";
 
 const CartItem = memo(({ title, img, price, max, quantity, id }: TProduct) => {
   const dispatch = useAppDispatch();
