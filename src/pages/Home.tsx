@@ -5,7 +5,7 @@ import { Grid } from "@mui/material";
 
 import useMain from "@hooks/useMain";
 import type { TProduct } from "@types";
-
+import ProductSkeleton from "@components/feedback/skeletons/ProductSkeleton/ProductSkeleton";
 
 const Home = () => {
   const { loading, error, productsFullInfo } = useMain();
@@ -14,9 +14,14 @@ const Home = () => {
     <>
       <Heading title={"Home"} />
       <Grid>
-        <Loading status={loading} error={error}>
+        <Loading
+          skeleton={<ProductSkeleton count={productsFullInfo.length} />}
+          status={loading}
+          error={error}
+        >
           <Grid mb={5} container spacing={2}>
             <GridList
+              emptyMessage=" There are no Products"
               records={productsFullInfo}
               renderItem={(record: TProduct) => <Product {...record} />}
               col1={4}

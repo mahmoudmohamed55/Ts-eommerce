@@ -1,18 +1,28 @@
 import type { TLoading } from "@types";
-
-;
+import LottieHandler from "../LottieHandler/LottieHandler";
 
 type ILoading = {
   status: TLoading;
   error: null | string;
   children: React.ReactNode;
+  skeleton?: React.ReactNode;
 };
-export default function Loading({ status, error, children }: ILoading) {
+
+export default function Loading({
+  status,
+  error,
+  children,
+  skeleton,
+}: ILoading) {
   if (status === "pending") {
-    return <h1 className="text-center text-red-600 ">loading</h1>;
+    return <>{skeleton ?? null}</>;
   }
+
   if (status === "failed") {
-    return <h1 className="text-center text-red-600 ">{error}</h1>;
+    return (
+      <LottieHandler type="error" message={error || "Something went wrong"} />
+    );
   }
-  return children;
+
+  return <>{children}</>;
 }

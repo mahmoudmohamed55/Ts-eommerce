@@ -37,18 +37,7 @@
       "img": "https://media.istockphoto.com/id/1097874048/photo/womens-fitness-outfit-isolated-on-white-background.jpg?s=2048x2048&w=is&k=20&c=tQPqhnOz-2PqMxbsSbyyLff4AChXfeXWUIvMwZzzpa0="
     }
   ],
-  "wishlist": [
-    {
-      "userId": 1,
-      "productId": 17,
-      "id": 4
-    },
-    {
-      "userId": 1,
-      "productId": 2,
-      "id": 5
-    }
-  ],
+  "wishlist": [],
   "products": [
     {
       "id": 1,

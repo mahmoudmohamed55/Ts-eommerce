@@ -5,15 +5,21 @@ import { Grid } from "@mui/material";
 
 import useWishlist from "@hooks/useWishlist";
 import type { TProduct } from "@types";
+import ProductSkeleton from "@components/feedback/skeletons/ProductSkeleton/ProductSkeleton";
 
 const Wishlist = () => {
   const { loading, error, products } = useWishlist();
   return (
     <>
       <Heading title={"Wishlist"} />
-      <Loading status={loading} error={error}>
+      <Loading
+        skeleton={<ProductSkeleton count={products.length} />}
+        status={loading}
+        error={error}
+      >
         <Grid mb={5} container spacing={2}>
           <GridList
+            emptyMessage=" Your wishlist is empty"
             records={products}
             renderItem={(record: TProduct) => <Product {...record} />}
             col1={4}

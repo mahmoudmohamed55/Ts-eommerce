@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { MainLayout } from "@layouts/index";
+import LottieHandler from "@components/feedback/LottieHandler/LottieHandler";
 // Pages
 const AboutUs = lazy(() => import("@pages/AboutUs"));
 const Account = lazy(() => import("@pages/Account"));
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <Suspense fallback="Loading Please Wait">
+          <Suspense fallback={<LottieHandler type="loading" message="Loading Products..." />}>
             <Home />
           </Suspense>
         ),
@@ -46,7 +47,7 @@ const router = createBrowserRouter([
       {
         path: "/wishlist",
         element: (
-          <Suspense fallback="Loading Please Wait">
+          <Suspense fallback={<LottieHandler type="loading" message="Loading Wishlist..." />}>
             <Wishlist />
           </Suspense>
         ),
@@ -54,7 +55,7 @@ const router = createBrowserRouter([
       {
         path: "categories",
         element: (
-          <Suspense fallback="Loading Please Wait">
+          <Suspense fallback={<LottieHandler type="loading" message="Loading Categories..." />}>
             <Categories />
           </Suspense>
         ),
@@ -62,7 +63,7 @@ const router = createBrowserRouter([
       {
         path: "cart",
         element: (
-          <Suspense fallback="Loading Please Wait">
+          <Suspense fallback={<LottieHandler type="loading" message="Loading Cart..." />}>
             <Cart />
           </Suspense>
         ),
@@ -70,7 +71,7 @@ const router = createBrowserRouter([
       {
         path: "/categories/products/:prefix",
         element: (
-          <Suspense fallback="Loading Please Wait">
+          <Suspense fallback={<LottieHandler type="loading" message="Loading Products..." />}>
             <Products />
           </Suspense>
         ),
