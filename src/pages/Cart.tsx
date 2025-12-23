@@ -11,26 +11,27 @@ export default function Cart() {
   const { loading, error, products, total } = useCart();
 
   return (
-    <Container maxWidth="md">
+    <>
       <Heading title="Cart" />
+      <Container maxWidth="md">
+        <Loading
+          skeleton={<CartSkeleton count={products.length} />}
+          status={loading}
+          error={error}
+        >
+          {products.length === 0 ? (
+            <LottieHandler type="empty" message="Your cart is empty" />
+          ) : (
+            <>
+              <Stack gap={2}>
+                <CartItemList products={products} />
+              </Stack>
 
-      <Loading
-        skeleton={<CartSkeleton count={products.length} />}
-        status={loading}
-        error={error}
-      >
-        {products.length === 0 ? (
-          <LottieHandler type="empty" message="Your cart is empty" />
-        ) : (
-          <>
-            <Stack gap={2}>
-              <CartItemList products={products} />
-            </Stack>
-
-            <CartSubtotalPrice total={total} />
-          </>
-        )}
-      </Loading>
-    </Container>
+              <CartSubtotalPrice total={total} />
+            </>
+          )}
+        </Loading>
+      </Container>
+    </>
   );
 }

@@ -7,7 +7,6 @@ interface HeadingProps {
 }
 
 const Heading = memo(({ title, align = "left" }: HeadingProps) => {
-
   return (
     <Typography
       variant="h5"
@@ -16,6 +15,7 @@ const Heading = memo(({ title, align = "left" }: HeadingProps) => {
         fontWeight: 700,
         color: "#222",
         my: 2.5,
+        ml: 2,
         textAlign: align,
         letterSpacing: "0.5px",
         textTransform: "capitalize",
