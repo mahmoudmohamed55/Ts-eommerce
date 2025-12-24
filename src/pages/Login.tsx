@@ -1,7 +1,6 @@
 import {
   Box,
   Container,
-  TextField,
   Button,
   Typography,
   Card,
@@ -10,14 +9,12 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { z } from "zod";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-const loginSchema = z.object({
-  email: z.string().min(1, { message: "Email name is required" }).email(),
-  password: z.string().min(1, { message: "Password is required" }),
-});
-type FormValues = z.infer<typeof loginSchema>;
+import { loginSchema, type FormValues } from "@validations/signInSchema";
+import { Input } from "@components/Form";
+
 const Login = () => {
   const theme = useTheme();
   const {
@@ -36,6 +33,7 @@ const Login = () => {
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     console.log(data);
   };
+
   return (
     <Container maxWidth="sm">
       <Card
@@ -66,22 +64,19 @@ const Login = () => {
             flexDirection="column"
             gap={3}
           >
-            <TextField
+            <Input
               label="Email Address"
-              type="text"
-              fullWidth
-              {...register("email")}
-              error={errors.email ? true : false}
-              helperText={errors.email?.message}
+              register={register}
+              name="email"
+              error={errors.email?.message}
             />
 
-            <TextField
+            <Input
               label="Password"
+              register={register}
+              name="password"
+              error={errors.password?.message}
               type="password"
-              fullWidth
-              {...register("password")}
-              error={!!errors.password}
-              helperText={errors.password?.message}
             />
 
             <Button
@@ -93,7 +88,10 @@ const Login = () => {
                 py: 1,
                 borderRadius: 2,
                 textTransform: "none",
-                fontWeight: 500,
+                fontWeight: "bold",
+                fontSize: "16px",
+                width: "50%",
+                mx: "auto",
               }}
             >
               Login

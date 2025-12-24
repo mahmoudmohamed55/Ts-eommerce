@@ -1,11 +1,9 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
   Box,
   Container,
-  TextField,
   Button,
   Typography,
   Card,
@@ -14,38 +12,44 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-const signUpSchema = z
-  .object({
-    firstName: z.string().min(1, { message: "First name is required" }),
-    lastName: z.string().min(1, { message: "Last name is required" }),
-    email: z.string().min(1, { message: "Email name is required" }).email(),
-    password: z
-      .string()
-      .min(8, { message: "Password must be at least 8 characters longs" })
-      .regex(/.*[!@#$%^&*()_+{}|[\]\\:";'<>?,./].*/, {
-        message: "Password should contain at least 1 special character",
-      }),
-    confirmPassword: z
-      .string()
-      .min(1, { message: "Confirm Password is required" }),
-  })
-  .refine((input) => input.password === input.confirmPassword, {
-    message: "Password and Confirm Password does not match",
-    path: ["confirmPassword"],
-  });
-type FormValues = z.infer<typeof signUpSchema>;
+import { signUpSchema, type FormValues } from "@validations/signUpSchema";
+import { Input } from "@components/Form";
+import useCheckEmailAvailability from "@hooks/useCheckEmailAvailability";
+
 const Register = () => {
   const {
     handleSubmit,
     register,
     formState: { errors },
     setFocus,
+    getFieldState,
+    trigger,
   } = useForm<FormValues>({
     mode: "onBlur",
     resolver: zodResolver(signUpSchema),
   });
+  const {
+    emailAvailabilityStatus,
+    enteredEmail,
+    checkEmailAvailability,
+    resetCheckEmailAvailability,
+  } = useCheckEmailAvailability();
+
+
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     console.log(data);
+  };
+  const onBlurHandler = async (e: React.FocusEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    await trigger("email");
+    const { invalid, isDirty } = getFieldState("email");
+
+    if (isDirty && !invalid && value !== enteredEmail) {
+      checkEmailAvailability(value);
+    }
+    if (isDirty && invalid && enteredEmail) {
+      resetCheckEmailAvailability();
+    }
   };
   useEffect(() => {
     setFocus("firstName");
@@ -81,53 +85,48 @@ const Register = () => {
             gap={2.5}
             onSubmit={handleSubmit(onSubmit)}
           >
-            <TextField
+            <Input
               label="First Name"
-              type="text"
-              fullWidth
-              {...register("firstName")}
-              error={errors.firstName ? true : false}
-              helperText={errors.firstName ? errors.firstName.message : ""}
+              register={register}
+              name="firstName"
+              error={errors.firstName?.message}
             />
-
-            <TextField
+            <Input
               label="Last Name"
-              type="text"
-              fullWidth
-              {...register("lastName")}
-              error={!!errors.lastName}
-              helperText={errors.lastName ? errors.lastName.message : ""}
+              register={register}
+              name="lastName"
+              error={errors.lastName?.message}
             />
-
-            <TextField
+            <Input
               label="Email Address"
               type="text"
-              fullWidth
-              {...register("email")}
-              error={!!errors.email}
-              helperText={errors.email ? errors.email.message : ""}
-            />
-            <TextField
-              label="Password"
-              type="password"
-              fullWidth
-              {...register("password")}
-              error={!!errors.password}
-              helperText={errors.password ? errors.password.message : ""}
+              register={register}
+              name="email"
+              error={errors.email?.message}
+              onBlur={onBlurHandler}
+              emailAvailabilityStatus={emailAvailabilityStatus}
             />
 
-            <TextField
+            <Input
+              label="Password"
+              type="password"
+              register={register}
+              name="password"
+              error={errors.password?.message}
+            />
+            <Input
               label="Confirm Password"
               type="password"
-              fullWidth
-              {...register("confirmPassword")}
-              error={!!errors.confirmPassword}
-              helperText={
-                errors.confirmPassword ? errors.confirmPassword.message : ""
-              }
+              register={register}
+              name="confirmPassword"
+              error={errors.confirmPassword?.message}
             />
 
             <Button
+              disabled={
+                emailAvailabilityStatus === "checking" ||
+                emailAvailabilityStatus === "notAvailable"
+              }
               variant="contained"
               size="medium"
               type="submit"
@@ -136,10 +135,13 @@ const Register = () => {
                 py: 1,
                 borderRadius: 2,
                 textTransform: "none",
-                fontWeight: 500,
+                fontWeight: "bold",
+                fontSize: "16px",
+                width: "50%",
+                mx: "auto",
               }}
             >
-              Register
+              Submit
             </Button>
 
             <Typography
