@@ -6,16 +6,26 @@ import {
   Card,
   CardContent,
   useTheme,
+  Alert,
+  CircularProgress,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useForm, type SubmitHandler } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { loginSchema, type FormValues } from "@validations/signInSchema";
 import { Input } from "@components/Form";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import actAuthLogin from "@store/auth/act/actAuthLogin";
+import { resetUI } from "@store/auth/authSlice";
 
 const Login = () => {
+  const dispatch = useAppDispatch();
+  const { loading, error } = useAppSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const message = searchParams.get("message");
   const theme = useTheme();
   const {
     handleSubmit,
@@ -31,9 +41,20 @@ const Login = () => {
   }, [setFocus]);
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data);
+    if (searchParams.has("message")) {
+      setSearchParams("");
+    }
+    dispatch(actAuthLogin(data))
+      .unwrap()
+      .then(() => {
+        navigate("/");
+      });
   };
-
+  useEffect(() => {
+    return () => {
+      dispatch(resetUI());
+    };
+  }, [dispatch]);
   return (
     <Container maxWidth="sm">
       <Card
@@ -48,14 +69,11 @@ const Login = () => {
             Welcome Back
           </Typography>
 
-          <Typography
-            variant="body2"
-            textAlign="center"
-            color="text.secondary"
-            mb={4}
-          >
-            Login to continue
-          </Typography>
+          {message === "account_created" && (
+            <Alert sx={{ mb: 2 }} severity="success">
+              Account created successfully!
+            </Alert>
+          )}
 
           <Box
             onSubmit={handleSubmit(onSubmit)}
@@ -84,7 +102,6 @@ const Login = () => {
               variant="contained"
               size="medium"
               sx={{
-                my: 2,
                 py: 1,
                 borderRadius: 2,
                 textTransform: "none",
@@ -94,9 +111,26 @@ const Login = () => {
                 mx: "auto",
               }}
             >
-              Login
+              {loading === "pending" ? (
+                <>
+                  <CircularProgress
+                    size={20}
+                    sx={{
+                      color: "white",
+                      mr: 1,
+                    }}
+                  />
+                  Loading...
+                </>
+              ) : (
+                "Login"
+              )}
             </Button>
-
+            {error && (
+              <Typography variant="body2" color="error" textAlign="center">
+                {error}
+              </Typography>
+            )}
             <Typography
               variant="body2"
               textAlign="center"

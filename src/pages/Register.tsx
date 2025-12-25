@@ -9,14 +9,22 @@ import {
   Card,
   CardContent,
   useTheme,
+  CircularProgress,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { signUpSchema, type FormValues } from "@validations/signUpSchema";
 import { Input } from "@components/Form";
 import useCheckEmailAvailability from "@hooks/useCheckEmailAvailability";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import actAuthRegister from "@store/auth/act/actAuthRegister";
+import { resetUI } from "@store/auth/authSlice";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const theme = useTheme();
+  const { loading, error } = useAppSelector((state) => state.auth);
   const {
     handleSubmit,
     register,
@@ -35,9 +43,15 @@ const Register = () => {
     resetCheckEmailAvailability,
   } = useCheckEmailAvailability();
 
-
   const onSubmit: SubmitHandler<FormValues> = (data) => {
+    const { firstName, lastName, email, password } = data;
     console.log(data);
+
+    dispatch(actAuthRegister({ firstName, lastName, email, password }))
+      .unwrap()
+      .then(() => {
+        navigate("/login?message=account_created");
+      });
   };
   const onBlurHandler = async (e: React.FocusEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -54,7 +68,12 @@ const Register = () => {
   useEffect(() => {
     setFocus("firstName");
   }, [setFocus]);
-  const theme = useTheme();
+  useEffect(() => {
+    return () => {
+      dispatch(resetUI());
+    };
+  }, [dispatch]);
+
   return (
     <Container maxWidth="sm">
       <Card
@@ -67,15 +86,6 @@ const Register = () => {
         <CardContent sx={{ px: 4, py: 5 }}>
           <Typography variant="h4" textAlign="center" fontWeight={600} mb={1}>
             Create Account
-          </Typography>
-
-          <Typography
-            variant="body2"
-            textAlign="center"
-            color="text.secondary"
-            mb={4}
-          >
-            Join us in just a few steps
           </Typography>
 
           <Box
@@ -125,13 +135,13 @@ const Register = () => {
             <Button
               disabled={
                 emailAvailabilityStatus === "checking" ||
-                emailAvailabilityStatus === "notAvailable"
+                emailAvailabilityStatus === "notAvailable" ||
+                loading === "pending"
               }
               variant="contained"
               size="medium"
               type="submit"
               sx={{
-                my: 2,
                 py: 1,
                 borderRadius: 2,
                 textTransform: "none",
@@ -141,9 +151,26 @@ const Register = () => {
                 mx: "auto",
               }}
             >
-              Submit
+              {loading === "pending" ? (
+                <>
+                  <CircularProgress
+                    size={20}
+                    sx={{
+                      color: "white",
+                      mr: 1,
+                    }}
+                  />
+                  Loading...
+                </>
+              ) : (
+                "Sign Up"
+              )}
             </Button>
-
+            {error && (
+              <Typography variant="body2" color="error" textAlign="center">
+                {error}
+              </Typography>
+            )}
             <Typography
               variant="body2"
               textAlign="center"

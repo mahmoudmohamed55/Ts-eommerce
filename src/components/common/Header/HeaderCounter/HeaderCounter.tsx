@@ -14,11 +14,22 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Badge from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { NavLink } from "react-router-dom";
-import { useAppSelector } from "@store/hooks";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { totalQuantitySelector } from "@store/cart/selectors";
 import styles from "./styles.module.css";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 import wishlist from "@assets/svg/wishlist.svg";
+import {
+  Button,
+  Collapse,
+  Divider,
+  ListItemButton,
+  Menu,
+  MenuItem,
+} from "@mui/material";
+import { authLogout } from "@store/auth/authSlice";
 const { pumpAnimate } = styles;
 const navItems = [
   { label: "Home", path: "/" },
@@ -38,6 +49,8 @@ interface Props {
 }
 
 export default function Header(props: Props) {
+  const dispatch = useAppDispatch();
+  const { accessToken, user } = useAppSelector((state) => state.auth);
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const cartCount = useAppSelector(totalQuantitySelector);
@@ -77,9 +90,22 @@ export default function Header(props: Props) {
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
-
+  const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [openUserMenu, setOpenUserMenu] = useState(false);
+  const open = Boolean(anchorEl);
+  const handleUserClick = () => setOpenUserMenu((prev) => !prev);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) =>
+    setAnchorEl(event.currentTarget);
+  const handleClose = () => setAnchorEl(null);
+  const handleLogout = () => {
+    navigate("/");
+    dispatch(authLogout());
+    handleClose();
+    setOpenUserMenu(false);
+  };
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center", mt: 5 }}>
+    <Box sx={{ textAlign: "center", mt: 5 }}>
       <Typography
         variant="h6"
         component="div"
@@ -96,7 +122,13 @@ export default function Header(props: Props) {
         Our
         <Chip
           label="eCom"
-          sx={{ bgcolor: "primary.main", color: "white", fontWeight: "bold" , height: 22, fontSize: 18}}
+          sx={{
+            bgcolor: "primary.main",
+            color: "white",
+            fontWeight: "bold",
+            height: 22,
+            fontSize: 18,
+          }}
         />
       </Typography>
 
@@ -104,6 +136,7 @@ export default function Header(props: Props) {
         {navItems.map((item) => (
           <ListItem key={item.label} disablePadding>
             <NavLink
+              onClick={handleDrawerToggle}
               to={item.path}
               style={({ isActive }) => ({
                 display: "block",
@@ -128,6 +161,7 @@ export default function Header(props: Props) {
         ))}
         <ListItem disablePadding>
           <NavLink
+            onClick={handleDrawerToggle}
             to="/cart"
             style={{
               display: "flex",
@@ -157,6 +191,7 @@ export default function Header(props: Props) {
         <ListItem disablePadding>
           <NavLink
             to="/wishlist"
+            onClick={handleDrawerToggle}
             style={{
               display: "flex",
               alignItems: "center",
@@ -182,31 +217,49 @@ export default function Header(props: Props) {
             </Badge>
           </NavLink>
         </ListItem>
-        {authItems.map((item) => (
-          <ListItem key={item.label} disablePadding>
-            <NavLink
+        {accessToken ? (
+          <>
+            <ListItemButton onClick={handleUserClick}>
+              <ListItemText
+                primary={`Welcome: ${user?.firstName} ${user?.lastName}`}
+              />
+              {openUserMenu ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={openUserMenu} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding sx={{ pl: 4 }}>
+                <ListItemButton
+                  component={NavLink}
+                  to="/profile"
+                  onClick={() => setOpenUserMenu(false)}
+                >
+                  <ListItemText primary="Profile" />
+                </ListItemButton>
+                <ListItemButton
+                  component={NavLink}
+                  to="/profile/orders"
+                  onClick={() => setOpenUserMenu(false)}
+                >
+                  <ListItemText primary="Orders" />
+                </ListItemButton>
+                <Divider />
+                <ListItemButton onClick={handleLogout}>
+                  <ListItemText primary="Logout" />
+                </ListItemButton>
+              </List>
+            </Collapse>
+          </>
+        ) : (
+          authItems.map((item) => (
+            <ListItemButton
+              onClick={handleDrawerToggle}
+              key={item.label}
+              component={NavLink}
               to={item.path}
-              style={({ isActive }) => ({
-                display: "block",
-                width: "100%",
-                fontWeight: "600",
-                textTransform: "none",
-                padding: "14px 12px",
-                fontSize: "15px",
-                borderRadius: "6px",
-                marginBottom: "6px",
-
-                color: isActive ? "#fff" : "#222",
-
-                backgroundColor: isActive ? "rgba(0,0,0,0.35)" : "transparent",
-
-                transition: "0.25s ease",
-              })}
             >
               <ListItemText primary={item.label} />
-            </NavLink>
-          </ListItem>
-        ))}
+            </ListItemButton>
+          ))
+        )}
       </List>
     </Box>
   );
@@ -380,18 +433,57 @@ export default function Header(props: Props) {
 
             {/* Right Auth links */}
             <Box sx={{ display: { xs: "none", sm: "flex" }, gap: 2 }}>
-              {authItems.map((item, idx) => (
-                <NavLink
-                  to={item.path}
-                  key={idx}
-                  className={({ isActive }) =>
-                    `block px-3 py-3 mb-2 rounded-md text-[14px] font-semibold transition
+              {accessToken ? (
+                <>
+                  <Button
+                    onClick={handleClick}
+                    sx={{ color: "#fff", textTransform: "none" }}
+                    endIcon={<ExpandMore />}
+                  >
+                    {`Welcome: ${user?.firstName} ${user?.lastName}`}
+                  </Button>
+
+                  <Menu
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                    transformOrigin={{ vertical: "top", horizontal: "right" }}
+                  >
+                    <MenuItem
+                      onClick={handleClose}
+                      component={NavLink}
+                      to="/profile"
+                    >
+                      Profile
+                    </MenuItem>
+                    <MenuItem
+                      onClick={handleClose}
+                      component={NavLink}
+                      to="/profile/orders"
+                    >
+                      Orders
+                    </MenuItem>
+                    <Divider />
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  </Menu>
+                </>
+              ) : (
+                authItems.map((item) => (
+                  <ListItem key={item.label} disablePadding>
+                    <NavLink
+                      to={item.path}
+                      key={item.label}
+                      className={({ isActive }) =>
+                        `block px-3 py-3 mb-2 rounded-md text-[14px] font-semibold transition
       ${isActive ? "text-white" : "text-zinc-400 hover:text-white"}`
-                  }
-                >
-                  {item.label}
-                </NavLink>
-              ))}
+                      }
+                    >
+                      {item.label}
+                    </NavLink>
+                  </ListItem>
+                ))
+              )}
             </Box>
           </Toolbar>
         </Container>

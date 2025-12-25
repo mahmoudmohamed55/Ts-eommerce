@@ -5,11 +5,13 @@ import error from "@assets/lottieFiles/Tomato Error.json";
 import empty from "@assets/lottieFiles/Empty Shopping.json";
 import notFound from "@assets/lottieFiles/Lonely 404.json";
 import loading from "@assets/lottieFiles/Shopping bag.json";
+import loading2 from "@assets/lottieFiles/loading.json"
 
 const lottieFilesMap = {
   notFound,
   empty,
   loading,
+  loading2,
   error,
 };
 

@@ -1,10 +1,39 @@
 {
   "users": [
     {
-      "id": 1,
-      "name": "John Doe",
-      "email": "john.doe@example.com",
-      "password": "password123"
+      "email": "totti@gmail.com",
+      "password": "$2a$10$CZUGknz4axcH6NuB0y5GIuOEydZERN2hb3Nwpt3Vmnn/dHg/wVJAq",
+      "firstName": "Mahmoud",
+      "lastName": "Mohamed",
+      "id": 1
+    },
+    {
+      "email": "ali@gmail.com",
+      "password": "$2a$10$T7i93ElFzq8eXrekkkRxnOogPJgIQQqXBJAONDyJWuUva80hTq2rm",
+      "firstName": "Mahmoud",
+      "lastName": "Mohamed",
+      "id": 2
+    },
+    {
+      "email": "ali2@gmail.com",
+      "password": "$2a$10$9xJBzmhNHEnOG.XRpUj4tugEfv7poLxCN4TECbBVr7n2/SKTDphFG",
+      "firstName": "Mahmoud",
+      "lastName": "Mohamed",
+      "id": 3
+    },
+    {
+      "email": "tito@gmail.com",
+      "password": "$2a$10$l8/AIvSAJdK53gprKT5Jt.JheRhaw9koSOn0YoDYM9cW/RGHoNTPq",
+      "firstName": "tito",
+      "lastName": "Mohamed",
+      "id": 4
+    },
+    {
+      "email": "totti2@gmail.com",
+      "password": "$2a$10$2sLj8SYh.5S1baHolGAo/eXfR4lD0B7snOZmONpT2JGTj0OIpR4qS",
+      "firstName": "Mahmoud",
+      "lastName": "Mohamed",
+      "id": 5
     }
   ],
   "category": [

@@ -91,7 +91,7 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: (
-          <Suspense fallback="Loading Please Wait">
+          <Suspense fallback={<LottieHandler type="loading2" message="Loading Login..." />}>
             <Login />
           </Suspense>
         ),
