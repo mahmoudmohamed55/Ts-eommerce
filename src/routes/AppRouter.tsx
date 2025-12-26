@@ -1,7 +1,10 @@
-import { lazy, Suspense } from "react";
+import { lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { MainLayout } from "@layouts/index";
-import LottieHandler from "@components/feedback/LottieHandler/LottieHandler";
+
+import PageSuspenseFallback from "@components/feedback/PageSuspenseFallback/PageSuspenseFallback";
+import ProtectedRoute from "@components/Auth/ProtectedRoute";
+import ProfileLayout from "@layouts/ProfileLayout/ProfileLayout";
 // Pages
 const AboutUs = lazy(() => import("@pages/AboutUs"));
 const Account = lazy(() => import("@pages/Account"));
@@ -23,57 +26,59 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <Suspense fallback={<LottieHandler type="loading" message="Loading Products..." />}>
+          <PageSuspenseFallback>
             <Home />
-          </Suspense>
+          </PageSuspenseFallback>
         ),
       },
       {
         path: "/about",
         element: (
-          <Suspense fallback="Loading Please Wait">
+          <PageSuspenseFallback>
             <AboutUs />
-          </Suspense>
+          </PageSuspenseFallback>
         ),
       },
       {
         path: "/account",
         element: (
-          <Suspense fallback="Loading Please Wait">
+          <PageSuspenseFallback>
             <Account />
-          </Suspense>
+          </PageSuspenseFallback>
         ),
       },
       {
         path: "/wishlist",
         element: (
-          <Suspense fallback={<LottieHandler type="loading" message="Loading Wishlist..." />}>
-            <Wishlist />
-          </Suspense>
+          <ProtectedRoute>
+            <PageSuspenseFallback>
+              <Wishlist />
+            </PageSuspenseFallback>
+          </ProtectedRoute>
         ),
       },
       {
         path: "categories",
         element: (
-          <Suspense fallback={<LottieHandler type="loading" message="Loading Categories..." />}>
+          <PageSuspenseFallback>
             <Categories />
-          </Suspense>
+          </PageSuspenseFallback>
         ),
       },
       {
         path: "cart",
         element: (
-          <Suspense fallback={<LottieHandler type="loading" message="Loading Cart..." />}>
+          <PageSuspenseFallback>
             <Cart />
-          </Suspense>
+          </PageSuspenseFallback>
         ),
       },
       {
         path: "/categories/products/:prefix",
         element: (
-          <Suspense fallback={<LottieHandler type="loading" message="Loading Products..." />}>
+          <PageSuspenseFallback>
             <Products />
-          </Suspense>
+          </PageSuspenseFallback>
         ),
         loader: ({ params }) => {
           if (
@@ -91,17 +96,27 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: (
-          <Suspense fallback={<LottieHandler type="loading2" message="Loading Login..." />}>
+          <PageSuspenseFallback>
             <Login />
-          </Suspense>
+          </PageSuspenseFallback>
         ),
       },
       {
         path: "register",
         element: (
-          <Suspense fallback="Loading Please Wait">
+          <PageSuspenseFallback>
             <Register />
-          </Suspense>
+          </PageSuspenseFallback>
+        ),
+      },
+      {
+        path: "profile",
+        element: (
+          <ProtectedRoute>
+            <PageSuspenseFallback>
+              <ProfileLayout />
+            </PageSuspenseFallback>
+          </ProtectedRoute>
         ),
       },
     ],

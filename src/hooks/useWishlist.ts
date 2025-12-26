@@ -9,14 +9,14 @@ const useWishlist = () => {
   );
   const cartItems = useAppSelector((state) => state.cart.items);
 
-
   const products = productsFullInfo.map((el) => ({
     ...el,
     isLiked: itemsId.includes(el.id),
     quantity: cartItems[el.id],
+    isAuthenticated: true,
   }));
   useEffect(() => {
-    const promise = dispatch(actGetWishlist());
+    const promise = dispatch(actGetWishlist("productsFullInfo"));
     return () => {
       dispatch(wishlistCleanUp());
       promise.abort();

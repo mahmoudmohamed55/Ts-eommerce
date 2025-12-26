@@ -30,6 +30,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import { authLogout } from "@store/auth/authSlice";
+import { actGetWishlist } from "@store/wishlist/wishlistSlice";
 const { pumpAnimate } = styles;
 const navItems = [
   { label: "Home", path: "/" },
@@ -57,6 +58,16 @@ export default function Header(props: Props) {
   const likeCount = useAppSelector((state) => state.wishlist.itemsId.length);
   const [isBumping, setIsBumping] = useState(false);
   const [isLikingBumping, setIsLikingBumping] = useState(false);
+  useEffect(() => {
+    if (accessToken) {
+      dispatch(actGetWishlist("ProductIds"));
+    }
+  }, [dispatch, accessToken]);
+  useEffect(() => {
+    if (accessToken) {
+      dispatch(actGetWishlist("ProductIds"));
+    }
+  }, [dispatch, accessToken]);
   useEffect(() => {
     if (!cartCount) {
       return;
@@ -236,7 +247,7 @@ export default function Header(props: Props) {
                 </ListItemButton>
                 <ListItemButton
                   component={NavLink}
-                  to="/profile/orders"
+                  to="/orders"
                   onClick={() => setOpenUserMenu(false)}
                 >
                   <ListItemText primary="Orders" />

@@ -33,6 +33,7 @@ const authSlice = createSlice({
       state.accessToken = null;
       state.loading = "idle";
       state.error = null;
+      
     },
   },
   extraReducers(builder) {

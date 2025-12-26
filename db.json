@@ -34,6 +34,13 @@
       "firstName": "Mahmoud",
       "lastName": "Mohamed",
       "id": 5
+    },
+    {
+      "email": "test@gmail.com",
+      "password": "$2a$10$CYNU2lB.DMrH8RD2OXn5weuD4DBMzVjEf56JOwU.2v5KpvGAhyhuC",
+      "firstName": "test",
+      "lastName": "2",
+      "id": 6
     }
   ],
   "category": [
@@ -74,7 +81,18 @@
       "img": "https://media.istockphoto.com/id/1097874048/photo/womens-fitness-outfit-isolated-on-white-background.jpg?s=2048x2048&w=is&k=20&c=tQPqhnOz-2PqMxbsSbyyLff4AChXfeXWUIvMwZzzpa0="
     }
   ],
-  "wishlist": [],
+  "wishlist": [
+    {
+      "userId": 1,
+      "productId": 18,
+      "id": 3
+    },
+    {
+      "userId": 1,
+      "productId": 17,
+      "id": 4
+    }
+  ],
   "products": [
     {
       "id": 1,

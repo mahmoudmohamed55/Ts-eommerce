@@ -1,6 +1,3 @@
-import { useForm, type SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-
 import {
   Box,
   Container,
@@ -11,69 +8,27 @@ import {
   useTheme,
   CircularProgress,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { signUpSchema, type FormValues } from "@validations/signUpSchema";
+import { Link, Navigate } from "react-router-dom";
+
 import { Input } from "@components/Form";
-import useCheckEmailAvailability from "@hooks/useCheckEmailAvailability";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
-import actAuthRegister from "@store/auth/act/actAuthRegister";
-import { resetUI } from "@store/auth/authSlice";
+import useRegister from "@hooks/useRegister";
 
 const Register = () => {
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const theme = useTheme();
-  const { loading, error } = useAppSelector((state) => state.auth);
   const {
     handleSubmit,
     register,
     formState: { errors },
-    setFocus,
-    getFieldState,
-    trigger,
-  } = useForm<FormValues>({
-    mode: "onBlur",
-    resolver: zodResolver(signUpSchema),
-  });
-  const {
+    onSubmit,
+    loading,
+    error,
+    accessToken,
     emailAvailabilityStatus,
-    enteredEmail,
-    checkEmailAvailability,
-    resetCheckEmailAvailability,
-  } = useCheckEmailAvailability();
-
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    const { firstName, lastName, email, password } = data;
-    console.log(data);
-
-    dispatch(actAuthRegister({ firstName, lastName, email, password }))
-      .unwrap()
-      .then(() => {
-        navigate("/login?message=account_created");
-      });
-  };
-  const onBlurHandler = async (e: React.FocusEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    await trigger("email");
-    const { invalid, isDirty } = getFieldState("email");
-
-    if (isDirty && !invalid && value !== enteredEmail) {
-      checkEmailAvailability(value);
-    }
-    if (isDirty && invalid && enteredEmail) {
-      resetCheckEmailAvailability();
-    }
-  };
-  useEffect(() => {
-    setFocus("firstName");
-  }, [setFocus]);
-  useEffect(() => {
-    return () => {
-      dispatch(resetUI());
-    };
-  }, [dispatch]);
-
+    onBlurHandler,
+  } = useRegister();
+  if (accessToken) {
+    return <Navigate to={"/"} />;
+  }
   return (
     <Container maxWidth="sm">
       <Card

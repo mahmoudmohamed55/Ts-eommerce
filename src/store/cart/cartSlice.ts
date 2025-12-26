@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { actGetProductsByItems } from "./act/actGetProductsByItems";
-import {  isString, type TLoading, type TProduct } from "@types";
+import { isString, type TLoading, type TProduct } from "@types";
+
 
 interface ICartState {
   items: { [key: string]: number };

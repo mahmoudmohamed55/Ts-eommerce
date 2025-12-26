@@ -1,3 +1,5 @@
+import { Input } from "@components/Form";
+import useLogin from "@hooks/useLogin";
 import {
   Box,
   Container,
@@ -5,56 +7,27 @@ import {
   Typography,
   Card,
   CardContent,
-  useTheme,
   Alert,
   CircularProgress,
+  useTheme,
 } from "@mui/material";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { useForm, type SubmitHandler } from "react-hook-form";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
-import { loginSchema, type FormValues } from "@validations/signInSchema";
-import { Input } from "@components/Form";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
-import actAuthLogin from "@store/auth/act/actAuthLogin";
-import { resetUI } from "@store/auth/authSlice";
+import { Link, Navigate } from "react-router-dom";
 
 const Login = () => {
-  const dispatch = useAppDispatch();
-  const { loading, error } = useAppSelector((state) => state.auth);
-  const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const message = searchParams.get("message");
   const theme = useTheme();
   const {
     handleSubmit,
     register,
     formState: { errors },
-    setFocus,
-  } = useForm<FormValues>({
-    mode: "onBlur",
-    resolver: zodResolver(loginSchema),
-  });
-  useEffect(() => {
-    setFocus("email");
-  }, [setFocus]);
-
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    if (searchParams.has("message")) {
-      setSearchParams("");
-    }
-    dispatch(actAuthLogin(data))
-      .unwrap()
-      .then(() => {
-        navigate("/");
-      });
-  };
-  useEffect(() => {
-    return () => {
-      dispatch(resetUI());
-    };
-  }, [dispatch]);
+    onSubmit,
+    loading,
+    error,
+    accessToken,
+    message,
+  } = useLogin();
+  if (accessToken) {
+    return <Navigate to="/" replace={true} />;
+  }
   return (
     <Container maxWidth="sm">
       <Card
@@ -72,6 +45,11 @@ const Login = () => {
           {message === "account_created" && (
             <Alert sx={{ mb: 2 }} severity="success">
               Account created successfully!
+            </Alert>
+          )}
+          {!accessToken && message === "login_required" && (
+            <Alert sx={{ mb: 2 }} severity="error">
+              You need to login to view this content
             </Alert>
           )}
 
