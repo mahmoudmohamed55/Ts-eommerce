@@ -6,13 +6,14 @@ import empty from "@assets/lottieFiles/Empty Shopping.json";
 import notFound from "@assets/lottieFiles/Lonely 404.json";
 import loading from "@assets/lottieFiles/Shopping bag.json";
 import loading2 from "@assets/lottieFiles/loading.json"
-
+import success from "@assets/lottieFiles/success.json";
 const lottieFilesMap = {
   notFound,
   empty,
   loading,
   loading2,
   error,
+  success,
 };
 
 type LottieHandlerProps = {
@@ -48,7 +49,7 @@ const LottieHandler = ({
       {message && (
         <Typography
           variant="body1"
-          color="text.secondary"
+         
           textAlign="center"
           mt={2}
           maxWidth={400}

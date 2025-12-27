@@ -1,11 +1,14 @@
 import { actGetProductsByItems, cartCleanUp } from "@store/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { resetOrderStatus } from "@store/orders/ordersSlice";
 import { useEffect, useMemo } from "react";
 const useCart = () => {
   const dispatch = useAppDispatch();
   const { loading, error, productsFullInfo, items } = useAppSelector(
     (state) => state.cart
   );
+  const placeOrderStatus = useAppSelector((state) => state.orders.loading);
+  const userAccessToken = useAppSelector((state) => state.auth.accessToken);
   const products = useMemo(() => {
     return productsFullInfo.map((el) => ({
       ...el,
@@ -18,10 +21,11 @@ const useCart = () => {
     const promise = dispatch(actGetProductsByItems());
 
     return () => {
-      dispatch(cartCleanUp());
       promise.abort();
+      dispatch(cartCleanUp());
+      dispatch(resetOrderStatus());
     };
   }, [dispatch]);
-  return { loading, error, products, total };
+  return { loading, error, products, total, userAccessToken, placeOrderStatus };
 };
 export default useCart;

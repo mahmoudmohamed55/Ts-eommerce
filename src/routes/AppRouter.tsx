@@ -6,8 +6,8 @@ import PageSuspenseFallback from "@components/feedback/PageSuspenseFallback/Page
 import ProtectedRoute from "@components/Auth/ProtectedRoute";
 import ProfileLayout from "@layouts/ProfileLayout/ProfileLayout";
 // Pages
-const AboutUs = lazy(() => import("@pages/AboutUs"));
-const Account = lazy(() => import("@pages/Account"));
+const Orders = lazy(() => import("@pages/Orders"));
+
 const Categories = lazy(() => import("@pages/Categories"));
 const Home = lazy(() => import("@pages/Home"));
 const Products = lazy(() => import("@pages/Products"));
@@ -32,18 +32,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/about",
+        path: "/orders",
         element: (
           <PageSuspenseFallback>
-            <AboutUs />
-          </PageSuspenseFallback>
-        ),
-      },
-      {
-        path: "/account",
-        element: (
-          <PageSuspenseFallback>
-            <Account />
+            <Orders />
           </PageSuspenseFallback>
         ),
       },

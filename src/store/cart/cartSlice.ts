@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { actGetProductsByItems } from "./act/actGetProductsByItems";
 import { isString, type TLoading, type TProduct } from "@types";
 
-
 interface ICartState {
   items: { [key: string]: number };
   productsFullInfo: TProduct[];
@@ -42,6 +41,10 @@ const cartSlice = createSlice({
     cartCleanUp: (state) => {
       state.productsFullInfo = [];
     },
+    clearCartAfterPlaceOrder: (state) => {
+      state.items = {};
+      state.productsFullInfo = [];
+    },
   },
   extraReducers(builder) {
     builder.addCase(actGetProductsByItems.pending, (state) => {
@@ -66,5 +69,6 @@ export const {
   cartItemChangeQuantity,
   cartItemRemove,
   cartCleanUp,
+  clearCartAfterPlaceOrder,
 } = cartSlice.actions;
 export default cartSlice.reducer;

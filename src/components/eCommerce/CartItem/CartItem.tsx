@@ -65,7 +65,7 @@ const CartItem = memo(({ title, img, price, max, quantity, id }: TProduct) => {
           {price}$
         </Typography>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <Typography variant="body2">Qty:</Typography>
+          <Typography variant="body2">Available Quantity:</Typography>
           <Select
             size="small"
             value={mount}

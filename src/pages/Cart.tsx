@@ -8,7 +8,8 @@ import { Container, Stack } from "@mui/material";
 import LottieHandler from "@components/feedback/LottieHandler/LottieHandler";
 
 export default function Cart() {
-  const { loading, error, products, total } = useCart();
+  const { loading, error, products, total, userAccessToken, placeOrderStatus } =
+    useCart();
 
   return (
     <>
@@ -19,16 +20,24 @@ export default function Cart() {
           status={loading}
           error={error}
         >
-          {products.length === 0 ? (
-            <LottieHandler type="empty" message="Your cart is empty" />
-          ) : (
+          {products.length ? (
             <>
               <Stack gap={2}>
                 <CartItemList products={products} />
               </Stack>
 
-              <CartSubtotalPrice total={total} />
+              <CartSubtotalPrice
+                total={total}
+                userAccessToken={userAccessToken}
+              />
             </>
+          ) : placeOrderStatus === "succeeded" ? (
+            <LottieHandler
+              type="success"
+              message="Your order has been placed successfully"
+            />
+          ) : (
+            <LottieHandler type="empty" message="Your cart is empty" />
           )}
         </Loading>
       </Container>

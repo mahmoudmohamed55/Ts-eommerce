@@ -35,8 +35,6 @@ const { pumpAnimate } = styles;
 const navItems = [
   { label: "Home", path: "/" },
   { label: "Categories", path: "/categories" },
-  { label: "About", path: "/about" },
-  { label: "Account", path: "/account" },
 ];
 
 const authItems = [
@@ -170,6 +168,32 @@ export default function Header(props: Props) {
             </NavLink>
           </ListItem>
         ))}
+        {accessToken && (
+          <ListItem disablePadding>
+            <NavLink
+              onClick={handleDrawerToggle}
+              to="/orders"
+              style={({ isActive }) => ({
+                display: "block",
+                width: "100%",
+                fontWeight: "600",
+                textTransform: "none",
+                padding: "14px 12px",
+                fontSize: "15px",
+                borderRadius: "6px",
+                marginBottom: "6px",
+
+                color: isActive ? "#fff" : "#222",
+
+                backgroundColor: isActive ? "rgba(0,0,0,0.35)" : "transparent",
+
+                transition: "0.25s ease",
+              })}
+            >
+              <ListItemText primary="Orders" />
+            </NavLink>
+          </ListItem>
+        )}
         <ListItem disablePadding>
           <NavLink
             onClick={handleDrawerToggle}
@@ -440,6 +464,17 @@ export default function Header(props: Props) {
                   {item.label}
                 </NavLink>
               ))}
+              {accessToken && (
+                <NavLink
+                  to="/orders"
+                  className={({ isActive }) =>
+                    `block px-3 py-3 mb-2 rounded-md text-[14px] font-semibold transition
+      ${isActive ? "text-white" : "text-zinc-400 hover:text-white"}`
+                  }
+                >
+                  {"Orders"}
+                </NavLink>
+              )}
             </Box>
 
             {/* Right Auth links */}
@@ -467,13 +502,6 @@ export default function Header(props: Props) {
                       to="/profile"
                     >
                       Profile
-                    </MenuItem>
-                    <MenuItem
-                      onClick={handleClose}
-                      component={NavLink}
-                      to="/profile/orders"
-                    >
-                      Orders
                     </MenuItem>
                     <Divider />
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
