@@ -466,7 +466,7 @@ export default function Header(props: Props) {
               ))}
               {accessToken && (
                 <NavLink
-                  to="/orders"
+                  to="/profile/orders"
                   className={({ isActive }) =>
                     `block px-3 py-3 mb-2 rounded-md text-[14px] font-semibold transition
       ${isActive ? "text-white" : "text-zinc-400 hover:text-white"}`

@@ -83,11 +83,6 @@
   ],
   "wishlist": [
     {
-      "userId": 1,
-      "productId": 1,
-      "id": 1
-    },
-    {
       "userId": 2,
       "productId": 1,
       "id": 2
@@ -96,11 +91,6 @@
       "userId": 4,
       "productId": 1,
       "id": 3
-    },
-    {
-      "userId": 4,
-      "productId": 2,
-      "id": 4
     }
   ],
   "products": [
@@ -299,160 +289,6 @@
   ],
   "orders": [
     {
-      "userId": 1,
-      "items": [
-        {
-          "id": 1,
-          "title": "Men Slim Fit Shirt",
-          "price": 499,
-          "img": "https://m.media-amazon.com/images/I/61wDc5SuNQL._AC_UL320_.jpg",
-          "quantity": 1
-        },
-        {
-          "id": 2,
-          "title": "Men Casual Jeans",
-          "price": 699,
-          "img": "https://m.media-amazon.com/images/I/71JteT3UKRL._AC_UL320_.jpg",
-          "quantity": 4
-        },
-        {
-          "id": 17,
-          "title": "Men Polo Shirt",
-          "price": 399,
-          "img": "https://m.media-amazon.com/images/I/518i+ANHN+L._AC_UL320_.jpg",
-          "quantity": 1
-        }
-      ],
-      "subtotal": 3694,
-      "id": 1
-    },
-    {
-      "userId": 1,
-      "items": [
-        {
-          "id": 1,
-          "title": "Men Slim Fit Shirt",
-          "price": 499,
-          "img": "https://m.media-amazon.com/images/I/61wDc5SuNQL._AC_UL320_.jpg",
-          "quantity": 1
-        },
-        {
-          "id": 2,
-          "title": "Men Casual Jeans",
-          "price": 699,
-          "img": "https://m.media-amazon.com/images/I/71JteT3UKRL._AC_UL320_.jpg",
-          "quantity": 4
-        }
-      ],
-      "subtotal": 3295,
-      "id": 2
-    },
-    {
-      "userId": 4,
-      "items": [
-        {
-          "id": 5,
-          "title": "Kids Colorful T-Shirt",
-          "price": 299,
-          "img": "https://m.media-amazon.com/images/I/71A2eJyaZLL._AC_UL320_.jpg",
-          "quantity": 1
-        },
-        {
-          "id": 6,
-          "title": "Kids Denim Shorts",
-          "price": 249,
-          "img": "https://m.media-amazon.com/images/I/61WxnpKz60L._AC_UL320_.jpg",
-          "quantity": 1
-        }
-      ],
-      "subtotal": 548,
-      "id": 3
-    },
-    {
-      "userId": 4,
-      "items": [
-        {
-          "id": 21,
-          "title": "Sunglasses",
-          "price": 259,
-          "img": "https://m.media-amazon.com/images/I/41ZXmJQnp9L._AC_UL320_.jpg",
-          "quantity": 1
-        },
-        {
-          "id": 22,
-          "title": "Hat",
-          "price": 199,
-          "img": "https://m.media-amazon.com/images/I/41YZK+x71LL._AC_UL320_.jpg",
-          "quantity": 1
-        },
-        {
-          "id": 11,
-          "title": "Running Sneakers",
-          "price": 999,
-          "img": "https://m.media-amazon.com/images/I/71oyW0-2h7L._AC_UL320_.jpg",
-          "quantity": 1
-        },
-        {
-          "id": 24,
-          "title": "Winter Boots",
-          "price": 999,
-          "img": "https://m.media-amazon.com/images/I/41g4BypCK8L._AC_UL320_.jpg",
-          "quantity": 1
-        },
-        {
-          "id": 13,
-          "title": "Laptop 15-inch",
-          "price": 12499,
-          "img": "https://m.media-amazon.com/images/I/51tR1HZJ3qL._AC_UL320_.jpg",
-          "quantity": 1
-        },
-        {
-          "id": 25,
-          "title": "Smartphone",
-          "price": 9999,
-          "img": "https://m.media-amazon.com/images/I/61yXZ6sG6GL._AC_UL320_.jpg",
-          "quantity": 1
-        }
-      ],
-      "subtotal": 24954,
-      "id": 4
-    },
-    {
-      "userId": 4,
-      "items": [
-        {
-          "id": 1,
-          "title": "Men Slim Fit Shirt",
-          "price": 499,
-          "img": "https://m.media-amazon.com/images/I/61wDc5SuNQL._AC_UL320_.jpg",
-          "quantity": 2
-        },
-        {
-          "id": 2,
-          "title": "Men Casual Jeans",
-          "price": 699,
-          "img": "https://m.media-amazon.com/images/I/71JteT3UKRL._AC_UL320_.jpg",
-          "quantity": 2
-        }
-      ],
-      "subtotal": 2396,
-      "id": 5
-    },
-    {
-      "userId": 4,
-      "items": [
-        {
-          "id": 2,
-          "title": "Men Casual Jeans",
-          "price": 699,
-          "img": "https://m.media-amazon.com/images/I/71JteT3UKRL._AC_UL320_.jpg",
-          "quantity": 1
-        }
-      ],
-      "subtotal": 699,
-      "id": 6
-    },
-    {
       "userId": 4,
       "items": [
         {
@@ -472,6 +308,20 @@
       ],
       "subtotal": 1198,
       "id": 7
+    },
+    {
+      "userId": 4,
+      "items": [
+        {
+          "id": 1,
+          "title": "Men Slim Fit Shirt",
+          "price": 499,
+          "img": "https://m.media-amazon.com/images/I/61wDc5SuNQL._AC_UL320_.jpg",
+          "quantity": 5
+        }
+      ],
+      "subtotal": 2495,
+      "id": 8
     }
   ]
 }

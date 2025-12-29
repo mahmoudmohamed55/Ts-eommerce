@@ -5,9 +5,8 @@ import { MainLayout } from "@layouts/index";
 import PageSuspenseFallback from "@components/feedback/PageSuspenseFallback/PageSuspenseFallback";
 import ProtectedRoute from "@components/Auth/ProtectedRoute";
 import ProfileLayout from "@layouts/ProfileLayout/ProfileLayout";
-// Pages
-const Orders = lazy(() => import("@pages/Orders"));
 
+// Pages
 const Categories = lazy(() => import("@pages/Categories"));
 const Home = lazy(() => import("@pages/Home"));
 const Products = lazy(() => import("@pages/Products"));
@@ -16,7 +15,8 @@ const Login = lazy(() => import("@pages/Login"));
 const Register = lazy(() => import("@pages/Register"));
 const Error404 = lazy(() => import("@pages/Error"));
 const Cart = lazy(() => import("@pages/Cart"));
-
+const Account = lazy(() => import("@pages/Account"));
+const Orders = lazy(() => import("@pages/Orders"));
 const router = createBrowserRouter([
   {
     path: "/",
@@ -110,6 +110,20 @@ const router = createBrowserRouter([
             </PageSuspenseFallback>
           </ProtectedRoute>
         ),
+        children: [
+          {
+            index: true,
+            element: (
+              <PageSuspenseFallback>
+                <Account />
+              </PageSuspenseFallback>
+            ),
+          },
+          {
+            path: "orders",
+            element: <Orders />,
+          },
+        ],
       },
     ],
   },
