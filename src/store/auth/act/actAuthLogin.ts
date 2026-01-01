@@ -23,7 +23,7 @@ const actAuthLogin = createAsyncThunk(
 
       return res.data;
     } catch (error) {
-      console.log(error);
+
 
       return rejectWithValue(axiosErrorHandler(error));
     }

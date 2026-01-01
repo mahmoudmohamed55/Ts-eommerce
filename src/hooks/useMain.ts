@@ -1,9 +1,11 @@
+import { actGetallProducts } from "@store/allproducts/act/allproductsact";
+import { allProductsCleanUp } from "@store/allproducts/AllProductsSlice";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { actGetallProducts } from "@store/products/allproducts/allproductsact";
+
 
 import { useEffect } from "react";
 
-import { allProductsCleanUp } from "@store/products/allproducts/AllProductsSlice";
+
 const useMain = () => {
   const dispatch = useAppDispatch();
   const { records, error, loading } = useAppSelector(

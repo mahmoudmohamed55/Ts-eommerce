@@ -10,7 +10,7 @@ const useOrders = () => {
   const { loading, error, orderList } = useAppSelector((state) => state.orders);
   const [showModal, setShowModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<TProduct[]>([]);
-  console.log(selectedProduct);
+
 
   const viewDetailsHandler = (id: number) => {
     const productDetails = orderList.find((order) => order.id === id);

@@ -13,7 +13,7 @@ const actAuthRegister = createAsyncThunk(
     const { rejectWithValue } = thunk;
     try {
       const res = await axios.post("/register", formData);
-      console.log(res.data);
+
       return res.data;
     } catch (error) {
       return rejectWithValue(axiosErrorHandler(error));

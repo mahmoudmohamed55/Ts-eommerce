@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import category from "@store/categories/categoriesSlice";
 import product from "@store/products/productsSlice";
-import AllProducts from "@store/products/allproducts/AllProductsSlice";
+import AllProducts from "@store/allproducts/AllProductsSlice";
 import cart from "@store/cart/cartSlice";
 import wishlist from "@store/wishlist/wishlistSlice";
 import auth from "@store/auth/authSlice";

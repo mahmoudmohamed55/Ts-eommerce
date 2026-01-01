@@ -16,7 +16,7 @@ const actGetOrders = createAsyncThunk(
           signal,
         }
       );
-      console.log(res.data);
+
       return res.data;
     } catch (error) {
       return rejectWithValue(axiosErrorHandler(error));

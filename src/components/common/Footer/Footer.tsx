@@ -6,8 +6,8 @@ export default function Footer() {
   return (
     <Box
       sx={{
-        bgcolor: "#f8f9fa", // خلفية فاتحة (Standard)
-        borderTop: "1px solid #e0e0e0", // خط خفيف في الأعلى
+        bgcolor: "#f8f9fa", 
+        borderTop: "1px solid #e0e0e0", 
         py: 2,
         mt: "auto",
       }}
@@ -18,7 +18,7 @@ export default function Footer() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: "#555", // لون رمادي هادي محترف جدًا
+          color: "#555", 
           fontSize: "0.9rem",
         }}
       >

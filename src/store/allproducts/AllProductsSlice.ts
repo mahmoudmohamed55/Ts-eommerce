@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { actGetallProducts } from "./allproductsact";
+
 import { isString, type TLoading, type TProduct } from "@types";
+import { actGetallProducts } from "./act/allproductsact";
 
 interface IProductsState {
   records: TProduct[];
