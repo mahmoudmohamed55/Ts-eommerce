@@ -23,7 +23,6 @@ export default function GridList<T extends hasID>({
       <LottieHandler type="empty" message={emptyMessage || "No items found"} />
     );
   }
-
   return (
     
     <>
