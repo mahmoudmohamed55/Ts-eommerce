@@ -25,6 +25,7 @@ export default function GridList<T extends hasID>({
   }
 
   return (
+    
     <>
       {records.map((cat) => (
         <Grid key={cat.id} size={{ xs: 12, sm: 6, md: col1, lg: col2 }}>
